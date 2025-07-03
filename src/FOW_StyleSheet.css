@@ -1,0 +1,920 @@
+body, html, table, tr, td {
+}
+/* ASP item standards*/
+/* this is standard for all bulleted Lists */
+.aspBulletedList {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* this is standard for all buttons */
+.aspButton {
+    background-color: #55B2AA;
+    color: White;
+    font-family: Arial, Helvetica, Sans-Serif;
+    Font-Size: 13px;
+    font-weight: bold;
+    border-color: #55A8A0;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/* this is standard for all buttons - grayed out button */
+.aspButtonDisabled {
+    background-color: #c4c4c4;
+    color: White;
+    font-family: Arial, Helvetica, Sans-Serif;
+    Font-Size: 13px;
+    font-weight: bold;
+    border-color: #c4c4c4;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.aspCalendar {
+    background-color: White;
+    border-color: #003333;
+    padding: 0px;
+    font-family: Arial, Helvetica, Sans-Serif;
+    Font-Size: 11px;
+    color: Black;
+    text-align: left;
+}
+
+.aspCalendar_SelectedDayStyle {
+    background-color: Yellow;
+    font-weight: bold;
+    color: Black;
+}
+
+.aspCalendar_NextPrevStyle {
+    vertical-align: top;
+    color: White;
+}
+
+.aspCalendar_DayHeaderStyle {
+    background-color: #CCCCCC;
+    font-weight: bold;
+    Font-Size: 11px;
+}
+
+.aspCalendar_TitleStyle {
+    background-color: #003333;
+    border-color: #003333;
+    color: White;
+    font-weight: bold;
+}
+
+.aspCalendar_DayStyle {
+    background-color: yellow;
+    border-color: #003333;
+    color: deeppink;
+    font-weight: bold;
+}
+
+/* this is standard for all Checkboxes  */
+.aspCheckBox {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*since so many entries have this, making it a default */
+.aspDefaultStyle {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* this is standard for all Dropdowns */
+.aspDropdown {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* this is standard for all disabled hyperlinks */
+.aspHyperlinkDisabled {
+    color: #808080;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 13px;
+}
+
+/* this is standard for all hyperlinks */
+.aspHyperlinkEnabled {
+    color: #003333;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 13px !important;
+}
+
+.aspImageButtonCalendar {
+    height: 16px;
+    width: 16px;
+}
+
+/* this is standard for all labels */
+.aspLabel {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* for smaller displays when lots data on page*/
+.aspLabel_11px {
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* this is standard for all page headers*/
+.aspLabelDirections {
+    color: #003333;
+    font-family: Arial, Helvetica, Sans-Serif;
+    Font-Size: 11px;
+    font-weight: bold;
+}
+
+/* this is standard for all error messages */
+.aspLabelError {
+    font-size: 13px;
+    font-family: Arial, Helvetica, Sans-Serif;
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* this is standard for all label headers */
+.aspLabelHeader {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+/* this is standard for all headers*/
+.aspLabelMainHeader {
+    color: #003333;
+    font-family: Arial, Helvetica, Sans-Serif;
+    Font-Size: 18px;
+    font-weight: bold;
+}
+
+/* used for smaller type font on screens*/
+.aspLabelSmallFont {
+    font-size: 10px;
+}
+
+/* this is standard for all subheaders*/
+.aspLabelSubHeader {
+    color: #003333;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.aspLinkButton {
+    text-align: center;
+    background-color: Transparent;
+    border-style: none;
+    color: #003333;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 13px;
+}
+
+/* this is standard for all bulleted Lists */
+.aspListBox {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.aspNavigationButton {
+    background-color: #55B2AA;
+    color: White;
+    font-family: Arial, Helvetica, Sans-Serif;
+    Font-Size: 13px;
+    font-weight: bold;
+    border-color: #55A8A0;
+    border-style: solid;
+    border-width: 1px;
+    width: 30px;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+.aspPhotoImage {
+    height: 150px;
+    width: 100px;
+}
+
+/* this is standard for all RadioButtons  */
+.aspRadioButton {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.aspTable_border-none {
+    border: 0px;
+}
+/* this is standard for all text boxes */
+.aspTextBox {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.display-block {
+    display: block;
+}
+
+.display_inline_block {
+    display: inline-block;
+}
+
+.display-none {
+    display: none;
+}
+
+.min_width_100px {
+    min-width: 100px;
+}
+
+/* grid view classes.  First 3 take care of generic look for header, row, and cell*/
+.GridView {
+    border-width: 0px;
+}
+
+.GridView_HeaderStyle {
+    /* style attributes here */
+    background-color: #55B2AA;
+    border-color: #55B2AA;
+    color: White;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.GridView_ItemStyle {
+    /* style attributes here */
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 11px;
+    text-align: left;
+}
+
+.GridView_RowStyle {
+    /* style attributes here */
+    background-color: white;
+    border-color: black;
+    color: black;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 11px;
+    text-align: left;
+}
+
+.GridView_AlternatingRowStyle {
+    background-color: whitesmoke;
+    border-color: black;
+    color: black;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 11px;
+    text-align: left;
+}
+
+.GridView_FooterStyle {
+    background-color: #55B2AA;
+    color: white;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.GridView_EditRowStyle {
+    background-color: #55B2AA;
+    color: white;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 11px;
+    text-align: left;
+}
+
+.GridView_SelectedRowStyle {
+    background-color: gray;
+    color: white;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.GridView_PagerStyle {
+    background-color: white;
+    font-family: Arial, Helvetica, Sans-Serif;
+    color: #55B2AA;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.margin-2px {
+    margin: 2px;
+}
+
+.padding-left-5px {
+    padding-left: 5px;
+}
+
+.padding-right-10px {
+    padding-right: 10px;
+}
+
+/* side Menu */
+.SideMenu-style {
+    height: 100%;
+    width: 100%;
+    border: 0px;
+    padding: 0px;
+    border-spacing: 0px;
+}
+
+.SideMenuCell-style {
+    background-repeat: repeat-y;
+    vertical-align: top;
+    text-align: left;
+}
+
+.SideMenuHr-style {
+    width: 100px;
+    text-align: left;
+}
+
+/* 2 files debra */
+.TableHeaderRow {
+    font-weight: bold;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: White;
+    background-color: #55B2AA;
+    line-height: 20px;
+}
+
+/* FOA - User Display only.  need to move*/
+.TableHeaderCell {
+    color: White;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* alternating row background */
+.TableRowBackground:nth-child(odd) {
+    background-color: white;
+}
+
+.TableRowBackground:nth-child(even) {
+    background-color: whitesmoke;
+}
+
+/* FOA - User Display only . LOA.  need to move*/
+.CheckBox {
+    font-size: 13px;
+}
+
+/* light gray*/
+.background-color-d0d0d0 {
+    background-color: #d0d0d0;
+}
+
+/* new color for COLT - Gainesboro*/
+.background-color-dcdcdc {
+    background-color: #dcdcdc;
+}
+
+.background-color-yellow {
+    background-color: yellow;
+}
+
+.font-style-italic {
+    font-style: italic;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.vertical-align-bottom {
+    vertical-align: bottom;
+}
+
+.vertical-align-central {
+    vertical-align: central;
+}
+
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+.vertical-align-top {
+    vertical-align: top;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.width-full {
+    width: 760px;
+}
+
+.width-0px {
+    width: 0px;
+}
+
+.width-5px {
+    width: 5px;
+}
+
+.width-10px {
+    width: 10px;
+}
+
+.width-15px {
+    width: 15px;
+}
+
+.width-20px {
+    width: 20px;
+}
+
+.width-25px {
+    width: 25px;
+}
+
+.width-30px {
+    width: 30px;
+}
+
+.width-35px {
+    width: 35px;
+}
+
+.width-40px {
+    width: 40px;
+}
+
+.width-45px {
+    width: 45px;
+}
+
+.width-50px {
+    width: 50px;
+}
+
+.width-55px {
+    width: 55px;
+}
+
+.width-60px {
+    width: 60px;
+}
+
+.width-65px {
+    width: 65px;
+}
+
+.width-70px {
+    width: 70px;
+}
+
+.width-75px {
+    width: 75px;
+}
+
+.width-80px {
+    width: 80px;
+}
+
+.width-85px {
+    width: 85px;
+}
+
+.width-90px {
+    width: 90px;
+}
+
+.width-95px {
+    width: 95px;
+}
+
+.width-100px {
+    width: 100px;
+}
+
+.width-110px {
+    width: 110px;
+}
+
+.width-120px {
+    width: 120px;
+}
+
+.width-125px {
+    width: 125px;
+}
+
+.width-130px {
+    width: 130px;
+}
+
+.width-140px {
+    width: 140px;
+}
+
+.width-150px {
+    width: 150px;
+}
+
+.width-160px {
+    width: 160px;
+}
+
+.width-170px {
+    width: 170px;
+}
+
+.width-175px {
+    width: 175px;
+}
+
+.width-180px {
+    width: 180px;
+}
+
+.width-190px {
+    width: 190px;
+}
+
+
+.width-200px {
+    width: 200px;
+}
+
+.width-210px {
+    width: 210px;
+}
+
+.width-220px {
+    width: 220px;
+}
+
+.width-225px {
+    width: 225px;
+}
+
+.width-230px {
+    width: 230px;
+}
+
+.width-240px {
+    width: 240px;
+}
+
+.width-250px {
+    width: 250px;
+}
+
+.width-260px {
+    width: 260px;
+}
+
+.width-270px {
+    width: 270px;
+}
+
+.width-280px {
+    width: 280px;
+}
+
+.width-290px {
+    width: 290px;
+}
+
+.width-300px {
+    width: 300px;
+}
+
+.width-310px {
+    width: 310px;
+}
+
+.width-320px {
+    width: 320px;
+}
+
+.width-330px {
+    width: 330px;
+}
+
+.width-340px {
+    width: 340px;
+}
+
+.width-350px {
+    width: 350px;
+}
+
+.width-360px {
+    width: 360px;
+}
+
+.width-370px {
+    width: 370px;
+}
+
+.width-375px {
+    width: 375px;
+}
+
+.width-380px {
+    width: 380px;
+}
+
+.width-390px {
+    width: 390px;
+}
+
+.width-400px {
+    width: 400px;
+}
+
+.width-410px {
+    width: 410px;
+}
+
+.width-420px {
+    width: 420px;
+}
+
+.width-430px {
+    width: 430px;
+}
+
+.width-440px {
+    width: 440px;
+}
+
+.width-450px {
+    width: 450px;
+}
+
+.width-460px {
+    width: 460px;
+}
+
+.width-470px {
+    width: 470px;
+}
+
+.width-475px {
+    width: 475px;
+}
+
+.width-480px {
+    width: 480px;
+}
+
+.width-490px {
+    width: 490px;
+}
+
+.width-500px {
+    width: 500px;
+}
+
+.width-510px {
+    width: 510px;
+}
+
+.width-520px {
+    width: 520px;
+}
+
+.width-530px {
+    width: 530px;
+}
+
+.width-540px {
+    width: 540px;
+}
+
+.width-550px {
+    width: 550px;
+}
+
+.width-560px {
+    width: 560px;
+}
+
+.width-570px {
+    width: 570px;
+}
+
+.width-575px {
+    width: 575px;
+}
+
+.width-580px {
+    width: 580px;
+}
+
+.width-590px {
+    width: 590px;
+}
+
+.width-600px {
+    width: 600px;
+}
+
+.width-610px {
+    width: 610px;
+}
+
+.width-620px {
+    width: 620px;
+}
+
+.width-630px {
+    width: 630px;
+}
+
+.width-640px {
+    width: 640px;
+}
+
+.width-650px {
+    width: 650px;
+}
+
+.width-660px {
+    width: 660px;
+}
+
+.width-670px {
+    width: 670px;
+}
+
+.width-680px {
+    width: 680px;
+}
+
+.width-690px {
+    width: 690px;
+}
+
+.width-700px {
+    width: 700px;
+}
+
+.width-710px {
+    width: 710px;
+}
+
+.width-720px {
+    width: 720px;
+}
+
+.width-730px {
+    width: 730px;
+}
+
+.width-740px {
+    width: 740px;
+}
+
+.width-750px {
+    width: 750px;
+}
+
+.width-760px {
+    width: 760px;
+}
+
+
+.height-5px {
+    height: 5px;
+}
+
+.height-10px {
+    height: 10px;
+}
+
+.height-15px {
+    height: 15px;
+}
+
+.height-20px {
+    height: 20px;
+}
+
+.height-25px {
+    height: 25px;
+}
+
+.height-30px {
+    height: 30px;
+}
+
+.height-35px {
+    height: 35px;
+}
+
+.height-40px {
+    height: 40px;
+}
+
+.height-45px {
+    height: 45px;
+}
+
+.height-50px {
+    height: 50px;
+}
+
+.height-60px {
+    height: 60px;
+}
+
+.height-70px {
+    height: 70px;
+}
+
+.height-80px {
+    height: 80px;
+}
+
+.height-90px {
+    height: 90px;
+}
+
+.height-100px {
+    height: 100px;
+}
+
+.height-500px {
+    height: 500px;
+}
+
+/* validate this on all items as it sometimes does funny things*/
+.horizontal-align-center {
+    margin: auto;
+    justify-content: center;
+}
+
+.Jumpseat_BCM_Text_Justify {
+    text-align: justify;
+}
+
+.font-size-10px {
+    font-size: 10px;
+}
+
+.font-size-11px {
+    font-size: 11px;
+}
+
+.font-size-12px {
+    font-size: 12px;
+}
+
+.font-size-13px {
+    font-size: 13px;
+}
+
+.font-size-14px {
+    font-size: 14px;
+}
+
+.font-size-15px {
+    font-size: 15px;
+}
+
+.font-size-16px {
+    font-size: 16px;
+}
+
+.font-size-17px {
+    font-size: 17px;
+}
+
+.font-size-18px {
+    font-size: 18px;
+}
+
+.font-size-20px {
+    font-size: 20px;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-blue {
+    color: blue;
+}
