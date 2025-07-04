@@ -1,424 +1,422 @@
-﻿body, html, table, td {
-    margin-top: 0px;
-    font-size: 11px;
-    font-family: Arial, Helvetica, Sans-Serif
+body,
+html,
+table,
+td {
+  margin-top: 0px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, Sans-Serif;
 }
 
 hr {
-    color: #626231
+  color: #626231;
 }
 
 a {
-    color: #003333;
+  color: #003333;
 }
 
-    a img {
-        border: none;
-    }
+a img {
+  border: none;
+}
 
-    a:hover {
-        color: Maroon;
-    }
+a:hover {
+  color: Maroon;
+}
 
-    a:roll {
-        font-weight: bold;
-    }
+a:roll {
+  font-weight: bold;
+}
 
-        a:roll:visited {
-            color: Blue;
-        }
+a:roll:visited {
+  color: Blue;
+}
 
-        a:roll:hover {
-            color: Maroon;
-        }
+a:roll:hover {
+  color: Maroon;
+}
 
-    a:visited {
-        color: #808000;
-    }
+a:visited {
+  color: #808000;
+}
 
 #FooterStyle {
-    font-size: 16px;
+  font-size: 16px;
 }
 
-input.button
-{
-    color:White;
-    background-color:#55B2AA;
-    border-color:#55A8A0;
-    border-width:1px;
-    border-style:Solid;
-    font-family:Arial,Helvetica,Sans-Serif;
-    font-size:13px;
-    font-weight:bold;
+input.button {
+  color: White;
+  background-color: #55b2aa;
+  border-color: #55a8a0;
+  border-width: 1px;
+  border-style: Solid;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 th.headercell {
-    font-weight: bold;
-    font-size: 13px;
-    color: White;
-    background-color: #003333;
+  font-weight: bold;
+  font-size: 13px;
+  color: White;
+  background-color: #003333;
 }
 
 td.cell {
-    font-size: 13px;
-    color: Black;
-    font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 13px;
+  color: Black;
+  font-family: Arial, Helvetica, Sans-Serif;
 }
 
-
 .aspButton {
-    background-color: #55B2AA;
-    color: White;
-    font-family: Arial, Helvetica, Sans-Serif;
-    Font-Size: 13px;
-    font-weight: bold;
-    border-color: #55A8A0;
-    border-style: solid;
-    border-width: 1px;
+  background-color: #55b2aa;
+  color: White;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 13px;
+  font-weight: bold;
+  border-color: #55a8a0;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .aspButtonAsHyperlink {
-    text-align: center;
-    font-size: 10px;
-    color: Purple;
-    background-color: Transparent;
-    border-style: none;
+  text-align: center;
+  font-size: 10px;
+  color: Purple;
+  background-color: Transparent;
+  border-style: none;
 }
 
 .aspMainHeader {
-    color: #003333;
-    font-family: Arial, Helvetica, Sans-Serif;
-    Font-Size: 18px;
-    font-weight: bold;
+  color: #003333;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 18px;
+  font-weight: bold;
 }
 .aspSubHeader {
-    color: #003333;
-    font-family: Arial, Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
+  color: #003333;
+  font-family: Arial, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .aspHyperlinkEnabled {
-    color: #003333;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 11px;
+  color: #003333;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 11px;
 }
 
 .aspHyperlinkDisabled {
-    color: #808080;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 11px;
+  color: #808080;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 11px;
 }
 
 .MainMenuLink {
-    color: #003333;
-    font-size: 11px;
+  color: #003333;
+  font-size: 11px;
 }
 
 .LabelErrorSmall {
-    font-size: 13px;
-    font-family: Arial, Helvetica, Sans-Serif;
-    color: red;
-    text-align: center;
-    font-weight: bold;
+  font-size: 13px;
+  font-family: Arial, Helvetica, Sans-Serif;
+  color: red;
+  text-align: center;
+  font-weight: bold;
 }
 
 .LabelError {
-    font-size: 16px;
-    font-family: Arial, Helvetica, Sans-Serif;
-    color: red;
-    text-align: center;
-    font-weight: bold;
+  font-size: 16px;
+  font-family: Arial, Helvetica, Sans-Serif;
+  color: red;
+  text-align: center;
+  font-weight: bold;
 }
 
 .Title {
-    color: black;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 18px;
-    font-weight: bold;
+  color: black;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.Label11{
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
+.Label11 {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
 }
 
 .LabelBold11 {
-    color: black;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 11px;
-    font-weight: bold;
+  color: black;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 11px;
+  font-weight: bold;
 }
 
 .Line {
-    color: black;
-    height: 2px;
-    width: 750px;
+  color: black;
+  height: 2px;
+  width: 750px;
 }
 
 .hiddencol {
-    display: none;
+  display: none;
 }
 
 .Label16 {
-    color: black;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 16px;
+  color: black;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 16px;
 }
 
 .LabelBold16 {
-    color: black;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 16px;
-    font-weight: bold;
+  color: black;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .Display {
-    color: black;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 16px;
+  color: black;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 16px;
 }
 
 .LabelBold14 {
-    color: black;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 14px;
-    font-weight: bold;
+  color: black;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .Label14 {
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .aspNavigationButton:disabled {
-    color: lightgray;
+  color: lightgray;
 }
 
 .aspNavigationButton {
-    background-color: #55B2AA;
-    color: White;
-    font-family: Arial, Helvetica, Sans-Serif;
-    Font-Size: 13px;
-    font-weight: bold;
-    border-color: #55A8A0;
-    border-style: solid;
-    border-width: 1px;
-    width: 30px;
-    margin-right: 2px;
-    margin-left: 2px;
+  background-color: #55b2aa;
+  color: White;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 13px;
+  font-weight: bold;
+  border-color: #55a8a0;
+  border-style: solid;
+  border-width: 1px;
+  width: 30px;
+  margin-right: 2px;
+  margin-left: 2px;
 }
 
 .aspLabel {
-    font-size: 13px;
-    font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .aspLabelHeader {
-    font-size: 13px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 .aspLabelLeftPad {
-    font-size: 11px;
-    padding-left: 45px;
+  font-size: 11px;
+  padding-left: 45px;
 }
 .Header {
-    VerticalPadding:"0";
-    StaticMenuItemStyle-Font-Name:"Verdana";
-    StaticMenuItemStyle-Font-Size:"9pt";
-    StaticMenuItemStyle-ForeColor:"#990000";
-    StaticHoverStyle-BackColor:"#707070";
-    StaticHoverStyle-ForeColor:"#FFFFFF";
-    DynamicMenuStyle-HorizontalPadding:"5";
-    DynamicMenuStyle-VerticalPadding:"0";
-    DynamicMenuStyle-BackColor:"#E0E0E0";
-    DynamicMenuStyle-ForeColor:"#990000";
-    DynamicMenuStyle-BorderWidth:"0";
-    DynamicMenuStyle-BorderColor:"#C0C0C0";
-    DynamicMenuItemStyle-VerticalPadding:"0";
-    DynamicMenuItemStyle-Font-Name:"Verdana";
-    DynamicMenuItemStyle-Font-Size:"9pt";
-    DynamicMenuItemStyle-ForeColor:"#990000";
-    DynamicHoverStyle-BackColor:"#FFFFFF";
-    DynamicHoverStyle-ForeColor:"#990000";
-    StaticEnableDefaultPopOutImage:"False";
+  verticalpadding: "0";
+  staticmenuitemstyle-font-name: "Verdana";
+  staticmenuitemstyle-font-size: "9pt";
+  staticmenuitemstyle-forecolor: "#990000";
+  statichoverstyle-backcolor: "#707070";
+  statichoverstyle-forecolor: "#FFFFFF";
+  dynamicmenustyle-horizontalpadding: "5";
+  dynamicmenustyle-verticalpadding: "0";
+  dynamicmenustyle-backcolor: "#E0E0E0";
+  dynamicmenustyle-forecolor: "#990000";
+  dynamicmenustyle-borderwidth: "0";
+  dynamicmenustyle-bordercolor: "#C0C0C0";
+  dynamicmenuitemstyle-verticalpadding: "0";
+  dynamicmenuitemstyle-font-name: "Verdana";
+  dynamicmenuitemstyle-font-size: "9pt";
+  dynamicmenuitemstyle-forecolor: "#990000";
+  dynamichoverstyle-backcolor: "#FFFFFF";
+  dynamichoverstyle-forecolor: "#990000";
+  staticenabledefaultpopoutimage: "False";
 }
 .tdstyle {
-    font-size: 13px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 .FixedLayoutTable {
-    table-layout: fixed;
-    font-size: 12px;
-    margin-top: 0;
-    border-top: 0;
-    border-collapse: collapse;
-    border-spacing: 0;
-    padding: 0;
+  table-layout: fixed;
+  font-size: 12px;
+  margin-top: 0;
+  border-top: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  padding: 0;
 }
 
 .TableHeaderRow {
-    font-weight: bold;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: White;
-    background-color: #55B2AA;
-    line-height: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: White;
+  background-color: #55b2aa;
+  line-height: 20px;
 }
 
 .TableHeaderRowSmall {
-    font-weight: bold;
-    font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: White;
-    background-color: #003333;
-    line-height: 20px;
+  font-weight: bold;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: White;
+  background-color: #003333;
+  line-height: 20px;
 }
 
 .TableHeaderCell {
-    color: White;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 14px;
-    font-weight: bold;
+  color: White;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.TableRowWithSpacing{
-
-    border-spacing: 0 10px;
+.TableRowWithSpacing {
+  border-spacing: 0 10px;
 }
 
 .CheckBox {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .ulNoIndent {
-    list-style-position: inside;
-    padding-left: 0px;
-    margin: 0px;
+  list-style-position: inside;
+  padding-left: 0px;
+  margin: 0px;
 }
 
 .Grid {
-    padding:4px;
+  padding: 4px;
 }
 
-    .Grid .footer {
-        background-color: #55B2AA;
-        font: bold;
-        color: white;
-        border-color: #55A8A0;
-    }
+.Grid .footer {
+  background-color: #55b2aa;
+  font: bold;
+  color: white;
+  border-color: #55a8a0;
+}
 
-    .Grid .row {
-        background-color: whitesmoke;
-        color: black;
-    }
+.Grid .row {
+  background-color: whitesmoke;
+  color: black;
+}
 
-    .Grid .editRow {
-        background-color: #55B2AA;
-        color: white;
-        border-color: #55A8A0;
-    }
+.Grid .editRow {
+  background-color: #55b2aa;
+  color: white;
+  border-color: #55a8a0;
+}
 
-    .Grid .selectedRow {
-        background-color: gray;
-        font: bold;
-        color: white;
-    }
+.Grid .selectedRow {
+  background-color: gray;
+  font: bold;
+  color: white;
+}
 
-    .Grid .pager {
-        background-color: white;
-        font: bold;
-        color: #55B2AA;
-        border-width:0px;
-    }
+.Grid .pager {
+  background-color: white;
+  font: bold;
+  color: #55b2aa;
+  border-width: 0px;
+}
 
-    .Grid .header {
-        background-color: #55B2AA;
-        font: bold;
-        color: white;
-        border-color: #55A8A0;
-        text-align: left;
-    }
+.Grid .header {
+  background-color: #55b2aa;
+  font: bold;
+  color: white;
+  border-color: #55a8a0;
+  text-align: left;
+}
 
-    .Grid .altRow {
-        background-color: white;
-        color: black;
-    }
+.Grid .altRow {
+  background-color: white;
+  color: black;
+}
 /* used to force width on Catering Exceptions checkboxes*/
-.chkBoxListCatering td
-{
-    width: 100px;
+.chkBoxListCatering td {
+  width: 100px;
 }
 
-.Smaller 
-{
-    font-size: smaller;
+.Smaller {
+  font-size: smaller;
 }
 
 .aspGridViewFooter {
-    color: White;
-    background-color: #174038;
-    font-weight: bold;
-    border-color: #55A8A0;
+  color: White;
+  background-color: #174038;
+  font-weight: bold;
+  border-color: #55a8a0;
 }
 
 .aspGridViewRowStyle {
-    background-color: WhiteSmoke;
-    color: Black;
+  background-color: WhiteSmoke;
+  color: Black;
 }
 
 .aspGridViewRowStyle {
-    background-color:#174038;
-    color:White;
-    border-color:#55A8A0;
+  background-color: #174038;
+  color: White;
+  border-color: #55a8a0;
 }
 
 .aspGridVewSelectedRowStyle {
-    background-color: Gray;
-    font-weight: bold;
-    color: White;
+  background-color: Gray;
+  font-weight: bold;
+  color: White;
 }
 .aspGridViewPagerStyle {
-    background-color: White;
-    color: #55B2AA;
-    border-width: 0px;
-    font-weight: bold;
+  background-color: White;
+  color: #55b2aa;
+  border-width: 0px;
+  font-weight: bold;
 }
 
 .aspGridViewHeaderStyle {
-    background-color: #174038;
-    font-weight: bold;
-    color: White;
-    border-color: #55A8A0;
-    text-align: left;
+  background-color: #174038;
+  font-weight: bold;
+  color: White;
+  border-color: #55a8a0;
+  text-align: left;
 }
 
 .aspImageButtonCalendar {
-    height: 16px;
-    width: 16px;
+  height: 16px;
+  width: 16px;
 }
 
 .font-weight-Bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .verticalAlign-Bottom {
-    vertical-align:bottom;
+  vertical-align: bottom;
 }
 
 .textAlign-Center {
-    text-align:center;
+  text-align: center;
 }
 
 .textAlign-Right {
-    text-align: right;
+  text-align: right;
 }
 
 .textAlign-Left {
-    text-align: left;
+  text-align: left;
 }
