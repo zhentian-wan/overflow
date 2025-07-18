@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W5FTZD5');</script>
+<!-- End Google Tag Manager -->
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>This is an Example of a Non-Responsive Design | Responsive Web Design</title>
+
+
+
+<base href="https://dequeuniversity.com/">
+
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/assets/images/icons/logos/apple-touch-icon.png">
+
+
+
+<link rel="stylesheet" type="text/css" href="/assets/css/ruleHelp.css" id="styles1">
+<link rel="stylesheet" type="text/css" href="/patterns-lib/deque-widgets.min.css" id="styles2">
+<link rel="stylesheet" type="text/css" href="/assets/js/highlight/styles/railscasts.css" id="styles3">
+<link rel="stylesheet" type="text/css" href="/assets/css/fontawesome-all.min.css" id="styles4">
+<link rel="stylesheet" type="text/css" href="/assets/css/dqu2019.min.css?refresh=1" id="styles5">
+
+
+
+
+<style id="headStyles" class="pageSpecific">
+
+</style>
+
+
+
+<script src="/assets/js/jquery.min.js" id="scripts1" class="pageSpecific"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" id="scripts2" class="pageSpecific"></script>
+<script src="/assets/js/dqu2019.min.js" id="scripts3" class="pageSpecific"></script>
+<script src="/assets/js/templates/shiftTab_focusAlignment.js" id="scripts4" class="pageSpecific"></script>
+
+
+
+
+<script>
+// Apply focus properly when accessing internal links with keyboard in WebKit browsers.
+// $("a[href^='#']").not("a[href='#']").click(function() {
+//   $("#"+$(this).attr("href").slice(1)+"").focus();
+// });
+</script>
+
+<!--[if lt IE 9]>
+<script>
+  var e = ("abbr,article,aside,audio,bdi,canvas,datalist,details,dialog," +
+      "figcaption,figure,footer,header,keygen,mark,menu,meter,main,nav,output," +
+	  "progress,rp,ruby,rt,section,source,summary,time,track,video,wbr").split(',');
+     for (var i = 0; i < e.length; i++) {
+          document.createElement(e[i]);
+        }
+</script>
+<![endif]-->
+
+
+
+
+
+
+</head>
+<body >
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5FTZD5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+   <!-- expiration locations = member-banner and isexpired =  -->
+  <div id="page" class="site">
+
+    <header id="masthead" class="site-header" style="padding-bottom: 32px;"><a class="skip-link sr-only sr-only-focusable" href="/#content">Skip to content</a>
+
+        <div class="top-bar">
+        <div class="container">
+          <div class="site-branding">
+            <p class="site-title">
+              <a class="logo" href="https://dequeuniversity.com/" rel="home">
+                <img src="assets/images/logos/deque_university_wordmark_white.png" height="83" alt="Deque University logo">
+              </a>
+            </p>
+          </div>
+          <div class="pull-right">
+            <span style="padding-top: .5rem; display: inline-block;">
+            </span>
+            <p class="empty-search"></p>
+            <div class="pull-right login">
+              <div id="inCourseLogin"><!--
+<form class="paypal" target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+            <input type="image" src="/assets/images/icons/cart36.png" width="24" height="24" name="submit" alt="View cart" id="submitCart">
+            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+          </form>
+-->
+          <div class="loginForm">
+  <div>
+     <!--<a class="loginLink loginLink btn white sm dropshadow" href="">Login</a>-->
+    <!--button--><a id="ssoLoginButton"  class="ssoLoginButton btn white dropshadow sm" href="ssologin/?context=web&uri=https%3A%2F%2Fdequeuniversity.com%2Flibrary%2Fresponsive%2F1-non-responsive">Login</a>
+  </div>
+</div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="container nav-container">
+        <nav class="main-navigation" aria-label="Main Menu">
+          <p class="site-title"><a class="logo" href="https://dequeuniversity.com/" rel="home" tabindex="-1" aria-hidden="true"><span class="sr-only">Deque</span>
+          <!--img src="assets/images/logos/deque_university_wordmark_white.png" height="83" alt="Deque University logo"-->
+          <img src="assets/images/logos/Deque_DequeU_Logo_White.png"
+          style="height: 50px; margin-top: -5px;" alt="Deque University logo" />
+          </a></p>
+          <button id="toggle-menu" class="main-menu-toggle" aria-expanded="false" aria-controls="menu-primary-navigation"> <span class="fa fa-bars"></span>Menu</button>
+          <ul id="menu-primary-navigation" aria-hidden="false" aria-label="Main Menu"
+            role="menubar">
+            <li id="menu-item-21099" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-21099 dropdown" role="none"><a role="menuitem" id="menubutton-21099" href="library/responsive/1-non-responsive#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="sub-menu-21099">Online Courses</a>
+              <ul role="menu" class=" sub-menu" tabindex="-1" aria-labelledby="menubutton-21099" id="sub-menu-21099" aria-hidden="true" >
+                <li id="menu-item-ssologin" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-ssologin" role="none"><a role="menuitem" href="https://dequeuniversity.com/ssologin/?context=web&uri=https%3A%2F%2Fdequeuniversity.com%2Fonline-courses%2F">Login to My Courses</a></li>
+                <li id="menu-item-300" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-300" role="none"><a role="menuitem" href="/online-courses/">View All Subscription Options</a></li>
+              </ul>
+            </li>
+            <li id="menu-item-21100" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-21100 dropdown" role="none"><a role="menuitem" id="menubutton-21100" href="library/responsive/1-non-responsive#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="sub-menu-21100">Instructor-Led Training</a>
+              <ul role="menu" class=" sub-menu" tabindex="-1" aria-labelledby="menubutton-21100" id="sub-menu-21100" aria-hidden="true" >
+                <li id="menu-item-301" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-301" role="none"><a role="menuitem" href="curriculum/instructor-led/">Accessibility Training</a></li>
+                <li id="menu-item-695" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-695" role="none"><a role="menuitem" href="curriculum/instructor-led/product-training">Deque Product Training</a></li>
+                <li id="menu-item-696" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-696" role="none"><a role="menuitem" href="https://www.deque.com/resources/type/webinars">Public Webinars</a></li>
+              </ul>
+            </li>
+            <li id="menu-item-21102" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-21102 dropdown" role="none"><a role="menuitem" id="menubutton-21102" href="library/responsive/1-non-responsive#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="sub-menu-21102">Resources</a>
+              <ul role="menu" class=" sub-menu" tabindex="-1" aria-labelledby="menubutton-21102" id="sub-menu-21102" aria-hidden="true" >
+                <li id="menu-item-198" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-198" role="none"><a role="menuitem" href="resources/">Resources Overview</a></li>
+                <li id="menu-item-19279" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19279" role="none"><a role="menuitem" href="checklists/web/">Web Accessibility Checklist</a></li>
+                <li id="menu-item-299" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-299" role="none"><a role="menuitem" href="screenreaders/">Screen Reader Reference Guides</a></li>
+                <li id="menu-item-34303" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-34303" role="none"><a role="menuitem" href="class/iaap-certification-quick-guide/">IAAP Certification Quick Guide</a></li>
+                <li id="menu-item-816" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-816" role="none"><a role="menuitem" href="library/">ARIA JavaScript Pattern Library</a></li>
+                <li id="menu-item-21611" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21611" role="none"><a role="menuitem" href="resources/disability-statistics">Disability Demographics</a></li>
+              </ul>
+            </li>
+            <li id="menu-item-22369" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-22369 dropdown" role="none"><a role="menuitem" id="menubutton-22369" href="library/responsive/1-non-responsive#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="sub-menu-22369">Support/Help</a>
+              <ul role="menu" class=" sub-menu" tabindex="-1" aria-labelledby="menubutton-22369" id="sub-menu-22369" aria-hidden="true">
+                <li id="menu-item-docs" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-docs" role="none"><a role="menuitem" href="https://docs.deque.com/deque-university/">Support Docs/User Guide</a></li>
+
+                <li id="menu-item-docs-other-products" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-docs" role="none"><a role="menuitem" href="https://docs.deque.com/">Support for Other Products</a></li>
+                <li id="menu-item-axe-rules" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-axe-rules" role="none"><a role="menuitem" href="/rules/axe/latest">Axe Rule Explanations</a></li>
+                <li id="menu-item-contact" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-contact" role="none"><a role="menuitem" href="/contact">Contact Us</a></li>
+              </ul>
+            </li>
+
+          </ul> </nav>
+      </div>
+    </header>
+
+    <div class="site-content">
+      <main id="content" tabindex="-1">
+        <div id="dataAttributes"  data-page-id="4620" data-content-source-id="" data-type="document" data-content-type="text/html" data-uri="library/responsive/1-non-responsive" data-uri-full="https://dequeuniversity.com/library/responsive/1-non-responsive" data-class-key="modDocument" data-pagetitle="This is an Example of a Non-Responsive Design" data-longtitle="This is an Example of a Non-Responsive Design" data-parent="4619" data-isfolder="" data-template="19" data-alias="1-non-responsive" data-menutitle="" data-description="" data-hidemenu="1" data-published="1" data-searchable="1" data-cacheable="1" data-createdby="1" data-createdon="2015-08-07 13:28:57" data-editedby="435" data-editedon="2022-05-11 20:01:12" data-deleted="" data-deletedby="0" data-deletedon="0"  data-publishedby="1" data-publishedon="2015-08-07 13:28:00" data-context-key="web" data-resource-groups="29,24,54"  ></div>
+
+        <div id="contentwrapper">
+
+
+
+          <div id="h1Wrapper" tabindex="-1">
+            <span id="srLoadSummary" class="visually-hidden"></span>
+            <h1 id="id4620_h1"  tabindex="-1">This is an Example of a Non-Responsive Design</h1>
+
+          </div>
+          <div id="pageInnerContent">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Non-Responsive Web Site</title>
+
+<base href="https://dequeuniversity.com/">
+
+<style>
+body {
+	margin:0;
+	padding:0;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#container {
+	width:1000px;
+	margin:auto;
+}
+
+#logo img {
+	padding:4px;
+}
+
+nav {
+	background-color:#325EB2;
+	text-align:center;
+}
+
+nav ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+	display:inline;
+}
+
+nav li {
+	margin:0;
+	padding:0;
+	list-style:none;
+	display:inline;
+}
+
+nav a {
+	color:#fff;
+	text-decoration:none;
+	display:inline-block;
+	margin:0;
+	padding:4px 8px;
+	font-weight:bold;
+}
+
+nav a:hover,
+nav a:focus,
+nav a:active {
+	background-color:#213091;
+}
+
+img.floatleft {
+	float:left;
+	margin:0 5px 5px 0;
+}
+
+main {
+	padding:10px 30px;
+	float:left;
+	width:700px;
+	padding:0 10px 10px 0;
+	box-sizing:border-box;
+}
+
+#topics-list {
+	float:right;
+	width:300px;
+	box-sizing:border-box;
+	padding:0 0 10px;
+
+}
+
+footer {
+	clear:both;
+	margin:20px 0 50px 0;
+	text-align:center;
+	background-color:#eee;
+	padding:3px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="logo"><img src="/assets/images/logos/dqu_wordmark.png" width="500" height="67" alt="Deque University"></div>
+<nav>
+<ul>
+	<li><a href="library/responsive/1-non-responsive#">Learn about Accessibility</a></li>
+    <li><a href="library/responsive/1-non-responsive#"> Testing Tools</a></li>
+    <li><a href="library/responsive/1-non-responsive#">Discussion Forum &amp; Mailing List</a></li>
+    <li><a href="library/responsive/1-non-responsive#">Blog</a></li>
+    <li><a href="library/responsive/1-non-responsive#">User Guides</a></li>
+</ul>
+</nav>
+
+<main>
+<h1>This is an Example of a Non-Responsive Design</h1>
+
+<p><img class="floatleft" src="/assets/images/accessibility_fundamentals/books-600.jpg" width="371" height="278" alt="A stack of old books, with the top book open and the pages fanned out">This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. </p>
+<h2>This is a subheading level 2</h2>
+<p>I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. </p>
+<h3>This is a sub heading level 3</h3>
+<p>This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. </p>
+<h3>This is another subheading level 3</h3>
+<p>This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. </p>
+<h2>This is another subheading level 2</h2>
+<p>This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. This is the content for this page. This is a lot of text just to fill the space. I will repeat it over and over again because that will fill up the space with more words, which is what I want to do. </p>
+
+</main>
+
+<div id="topics-list">
+<h2>Accessibility Topics</h2>
+<ul>
+  <li>Types of disabilities
+    <ul>
+      <li>Blindness</li>
+      <li>Deafblindness</li>
+      <li>Colorblindness</li>
+      <li>Low vision</li>
+      <li>Deafness</li>
+      <li>Dexterity/Motor</li>
+      <li>Cognitive</li>
+      <li>Seizure</li>
+    </ul>
+  </li>
+  <li>Assistive technologies
+    <ul>
+      <li>Screen readers</li>
+      <li>Screen magnifiers</li>
+      <li>Alternative pointing devices</li>
+      </ul>
+  </li>
+  <li>Laws and regulations
+    <ul>
+      <li>Americans with Disabilities Act (ADA)</li>
+      <li>Section 508</li>
+      <li>Air Carrier Access Act (ACAA)</li>
+      <li>(CVAA)</li>
+    </ul>
+  </li>
+  <li>Guidelines
+    <ul>
+      <li>Web Content Accessibility Guidelines (WCAG)</li>
+      </ul>
+  </li>
+  <li>Certification
+    <ul>
+      <li>IAAP Certified Associate in Accessibility</li>
+      <li>IAAP Certified Professional in Web Accessibility</li>
+    </ul>
+  </li>
+  </ul>
+</div>
+
+<footer>
+<p>Copyright 2015 Deque Systems. All rights reserved. <a href="library/responsive/1-non-responsive#">Terms of use</a>. </p>
+
+</div>
+</body>
+</html>
+
+</div>
+<!-- pageInnerContent -->
+</div>
+<!-- #contentwrapper -->
+</main>
+<!-- #content -->
+</div>
+</div>
+<!-- #container -->
+<footer id="footer" class="site-footer">
+        <div id="footer-content">
+                <section class="footer-links">
+                        <div class="container">
+                                <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                                <section id="nav_menu-2" class="widget widget_nav_menu">
+                                                        <section class="footer-info">
+                                                                <nav id="footer-nav-wrapper" aria-label="Footer Links">
+                                                                        <ul id="menu-footer-links" class="list-inline legal-links">
+                                                                                <li class="menu-item menu-item-type-post_type menu-item-object-page"><a style="text-decoration:underline;" href="/contact">Contact Us</a></li>
+                                                                                <li class="menu-item menu-item-type-post_type menu-item-object-page"><a style="text-decoration:underline;" href="https://www.deque.com/get-accessibility-help/">Request a quote or demo</a></li>
+                                                                                <li class="menu-item menu-item-type-post_type menu-item-object-page"><a style="text-decoration:underline;" href="/accessibility-statement">Accessibility statement</a></li>
+                                                                                <li class="menu-item menu-item-type-post_type menu-item-object-page"><a style="text-decoration:underline;" href="https://accessibility.deque.com/hubfs/VPATs/DequeUniversity_VPAT_WCAG2.1AA.pdf">VPAT</a></li>
+                                                                                <li class="menu-item menu-item-type-post_type menu-item-object-page"><a style="text-decoration:underline;" href="/sitemap">Site map</a></li>
+                                                                        </ul>
+                                                                </nav>
+                                                                <br>
+                                                                <p style="display:inline-block;border:1px solid #ffffff; border-radius:5px; padding:3px 6px 6px 6px;"></p>
+                                                                <p><br><a style="text-decoration:underline;font-size:100%" href="https://www.deque.com/axe/browser-extensions/?utm_source=dequeuniversity&utm_medium=referral&utm_campaign=DQU_Footer">Download free axe DevTools browser extension</a></p>
+                                                                <p><br>
+                                                                        <a class="logo" href="https://www.deque.com/" rel="home">
+                                                                                <span class="sr-only">Main Deque Website</span>
+                                                                                <img src="https://dequeuniversity.com/assets/js/sandbox/images/deque-logo-white.png" height="83" alt="Deque logo"></a>
+                                                                </p>
+                                                                <p class="copyright">13800 Coppermine Rd., Herndon VA 20171 <a href="tel:1-703-225-0380">1-703-225-0380</a></p>
+
+                                                                <p class="copyright">&copy; Copyright 2013-2025 Deque Systems. All rights reserved. <a href="/terms">Terms of Use</a> | <a href="https://www.deque.com/legal/" target="blank">Legal</a></p>
+                                                        </section>
+                                                </section>
+                                        </div>
+                                </div>
+                        </div>
+                </section>
+        </div>
+
+
+        <div aria-live="polite" id="polite" class="visually-hidden"></div>
+        <div aria-live="assertive" id="assertive" class="visually-hidden"></div>
+
+        <div class="pageSpecific">
+                <script class="expandCollapseCode">
+if (window.attachEvent && !window.addEventListener) {
+    // "bad" IE 8 or lower
+}
+else {
+
+var detailsUnsupportedHandler = function(event) {
+           if (event.which === 1 || event.which === 13 || event.which === 32) {
+            var detailsTag = $(this).parent();
+            var expanded = toggleSummaryExpanded($(this));
+            var tog = function () {
+              toggleOpen(detailsTag);
+            };
+
+            toggleChildren(detailsTag, expanded);
+          }
+        };
+        var detailsSupportedHandler = function (event) {
+          var $target = $(this);
+
+          toggleSummaryExpanded($target);
+        };
+
+        var toggleChildren = function(target, expanded) {
+          // Cycle through children and toggle show/hide
+          target.children().each(function(index, el) {
+              var $el = $(el);
+              if (index !== 0) {
+                if (expanded) {
+                  $el.hide();
+                } else {
+                  $el.show();
+                }
+              }
+            });
+        };
+        var toggleOpen = function(target) {
+          if (target.attr('open')) {
+            target.attr('open', false);
+          }
+          else {
+            target.attr('open', true);
+          }
+        };
+        var toggleSummaryExpanded = function(target) {
+          var expanded = true;
+		  var classExpanded = "expanded";
+		  var classCollapsed = "collapsed";
+          if (target.attr('aria-expanded') === undefined || !target.attr('aria-expanded') || target.attr('aria-expanded') == 'false') {
+            expanded = false;
+          }
+		  if (expanded === false) {
+			  target.addClass(classExpanded).removeClass(classCollapsed);
+		  }
+		  else target.addClass(classCollapsed).removeClass(classExpanded);
+          target.attr('aria-expanded', !expanded);
+          return expanded; // return old state
+        };
+        var initDetailsTags = function (config) {
+          var testTag = document.createElement('details');
+          var detailsTagSupported = ('open' in testTag);         //console.log('Details supported? '+(detailsTagSupported?'Yes':'No'));
+
+          // Cycle through details tags
+          $('details').each( function(index, detailsTag) {
+            var $detailsTag = $(detailsTag);
+            var open = detailsTagSupported ? $detailsTag.prop('open') : false;
+            var $firstChild = $detailsTag.children().first();
+
+            // Add a wrapper to textnodes
+            $detailsTag.contents().filter(function(){return this.nodeType === 3 && /\S/.test(this.nodeValue);}).wrap('<span></span>');
+
+            // Add summary if missing
+            if (!$firstChild.length || $firstChild.prop('nodeName') != 'SUMMARY') {
+              $firstChild = $('<summary aria-expanded="' + open + '">Details</summary>');
+              $detailsTag.prepend($firstChild);
+            }
+            // Otherwise set current expanded state
+            else {
+              $firstChild.attr('aria-expanded', open);
+            }
+
+            // Add handlers
+            if (detailsTagSupported) {
+              $firstChild.click(detailsSupportedHandler);
+            } else {
+              $detailsTag.attr('open', open).addClass('ds-notSupported');
+              toggleChildren($detailsTag, true);
+              $firstChild.attr('tabindex', 0).attr('role', 'button').addClass('summaryTag');
+              $firstChild.on('click keydown', detailsUnsupportedHandler);
+            }
+          });
+
+          var fakeSummary = $('.detailsTag > .summaryTag');
+          $('.detailsTag').addClass('notSupported');
+          fakeSummary.each( function(index, tag) {
+            // Add a wrapper to textnodes
+            $(tag).parent().contents().filter(function(){return this.nodeType === 3 && /\S/.test(this.nodeValue);}).wrap('<span></span>');
+            // Default close
+            toggleChildren($(tag).parent(), true);
+            // Add handler
+            $(tag).attr('aria-expanded', false).addClass("collapsed").removeClass("expanded").attr('tabindex', 0).attr('role', 'button').on('click keydown', detailsUnsupportedHandler);
+          });
+        };
+        $(document).ready(function() {
+          $("#error_feedback").focus();
+          initDetailsTags();
+    $('#test_btn').on('click', function(event) {
+        event.preventDefault();
+        toggleSummaryExpanded($(this));
+    });
+
+        });
+}
+
+</script>
+        </div>
+        <script class="pageSpecific">
+                $('#menuitem-3348').addClass('here active');
+$('#menuitem-3348 a').addClass('here active');
+        </script>
+
+
+        <script src="/patterns-lib/deque-widgets.min.js"></script>
+        <script src="assets/js/highlight/highlight.js" id="additionalScriptsInheritable1" class="pageSpecific"></script>
+
+        <script src="assets/js/googleAnalytics.js"></script>
+        <!--script src="assets/js/googleAnalytics.js"></script-->
+        <script src="assets/js/linkedin-insights.js"></script>
+        <noscript>
+                <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=1417225&fmt=gif">
+        </noscript>
+
+</footer>
+
+</body>
+
+</html>
