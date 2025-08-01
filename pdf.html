@@ -6,12 +6,12 @@
     <title>Document</title>
   </head>
   <body>
-    <button id="btn">Mock convert base64 to pdf</button>
-
+    <button id="btn">Generate pdf with timeout</button>
+    <button id="btn2">Generate pdf no timeout</button>
     <script>
-      document.getElementById("btn").addEventListener("click", async () => {
-        Promise.resolve().then(() => {
-          setTimeout(() => {
+
+      function pdf() {
+
             const json = {
               Status: "Success",
               Message: {
@@ -29,8 +29,18 @@
             link.href = base64Data;
             link.download = `Invoice - 1231231`;
             link.click();
+      }
+      
+      document.getElementById("btn").addEventListener("click", async () => {
+        Promise.resolve().then(() => {
+          setTimeout(() => {
+            pdf()
           }, 1000);
         });
+      });
+
+     document.getElementById("btn2").addEventListener("click", async () => {
+        pdf()
       });
     </script>
   </body>
