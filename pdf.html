@@ -35,17 +35,6 @@
         link.click();
       }
 
-      document.getElementById("btn").addEventListener("click", () => {
-        new Promise((res) => {
-          setTimeout(() => {
-            res(pdf());
-          }, 1000);
-        }).then(download);
-      });
-
-      document.getElementById("btn2").addEventListener("click", () => {
-        download(pdf());
-      });
       document.getElementById("open").addEventListener("click", () => {
         const newWindow = window.open("about:blank", "_blank");
         newWindow.location.href = "https://www.cnn.com";
