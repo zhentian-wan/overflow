@@ -6,10 +6,9 @@
     <title>Document</title>
   </head>
   <body>
-    <button id="btn">Generate pdf with timeout</button>
-    <button id="btn2">Generate pdf no timeout</button>
 
     <button id="open">Open cnn in new tab</button>
+    <button id="openLnk">Open bbc</button>
     <button id="openPdf">Open pdf in new tab</button>
     <script>
       function pdf() {
@@ -51,6 +50,9 @@
         const newWindow = window.open("about:blank", "_blank");
         newWindow.location.href = "https://www.cnn.com";
       });
+      document.getElementById("openLnk").addEventListener("click", () => {
+        window.open("https://bbc.com", "_blank");
+      })
       document.getElementById("openPdf").addEventListener("click", () => {
         new Promise((res) => {
           setTimeout(() => {
