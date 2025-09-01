@@ -60,7 +60,7 @@
         new Promise((res) => {
           setTimeout(() => {
             res(pdf());
-          }, 100);
+          }, 2000);
         }).then((data) => {
           const link = document.createElement("a");
           link.href = data;
