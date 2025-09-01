@@ -10,6 +10,9 @@
     <button id="open">Open cnn in new tab</button>
     <button id="openLnk">Open bbc</button>
     <button id="openPdf">Open pdf in new tab</button>
+    <br />
+    <br />
+    <button id="download">Download pdf</button>
     <script>
       function pdf() {
         const json = {
@@ -53,6 +56,18 @@
           newWindow.document.write(iframe);
         });
       });
+      document.getElementById("download").addEventListener("click", () => {
+        new Promise((res) => {
+          setTimeout(() => {
+            res(pdf());
+          }, 100);
+        }).then((data) => {
+          const link = document.createElement("a");
+          link.href = data;
+          link.download = "download.pdf";
+          link.click();
+        });
+      })
     </script>
   </body>
 </html>
