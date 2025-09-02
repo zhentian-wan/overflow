@@ -100,7 +100,7 @@
         }).then((data) => {
           const link = document.createElement("a");
           link.href = data;
-          link.download = `download-${+Date.now()}.pdf`;
+          link.download = `download-${Date.now()}.pdf`;
           link.click();
         });
         return true;
@@ -113,7 +113,7 @@
          }).then((data) => {
           const link = document.createElement("a");
           link.href = data;
-          link.download = `download-${+Date.now()}.pdf`;
+          link.download = `download-${Date.now()}.pdf`;
           link.click();
         });
 
