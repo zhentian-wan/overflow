@@ -60,13 +60,14 @@
         new Promise((res) => {
           setTimeout(() => {
             res(pdf());
-          }, 2000);
+          }, 1500);
         }).then((data) => {
           const link = document.createElement("a");
           link.href = data;
           link.download = "download.pdf";
           link.click();
         });
+        return true;
       })
     </script>
   </body>
