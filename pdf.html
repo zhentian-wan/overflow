@@ -74,18 +74,10 @@
         return true;
       })
        document.getElementById("a_downloadAsap").addEventListener("click", (e) => {
-         new Promise((res) => {
-           setTimeout(() => {
-            res(pdf());
-          }, 0);
-         }).then((data) => {
-          const link = document.createElement("a");
+         const link = document.createElement("a");
           link.href = 'https://qa-tools-appsulate.onrender.com/assets/PDF_With_Links.pdf';
           link.download = "download2.pdf";
           link.click();
-        });
-
-         return true;
        })
     </script>
   </body>
