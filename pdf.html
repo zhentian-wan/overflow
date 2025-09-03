@@ -68,7 +68,7 @@
         new Promise((res) => {
           setTimeout(() => {
             res(pdf());
-          }, 1500);
+          }, 150);
         }).then((data) => {
           const link = document.createElement("a");
           link.href = data;
