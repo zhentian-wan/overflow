@@ -81,7 +81,7 @@
          new Promise((res) => {
            setTimeout(() => {
             res(pdf());
-          }, 0);
+          }, 10);
          }).then((data) => {
           const link = document.createElement("a");
           link.href = data;
@@ -113,7 +113,7 @@
          new Promise((res) => {
            setTimeout(() => {
             res(pdf());
-          }, 0);
+          }, 100);
          }).then((data) => {
           const link = document.createElement("a");
           link.href = data;
