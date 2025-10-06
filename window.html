@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Items List</title>
+    <link rel="stylesheet" href="src/StyleSheet.css" />
+    <style>
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .item-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+      }
+
+      .item-card {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 15px 0;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+      }
+
+      .item-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .item-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #003333;
+        margin-bottom: 10px;
+      }
+
+      .item-description {
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .item-link {
+        color: #003333;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 8px 16px;
+        background-color: #55b2aa;
+        color: white;
+        border-radius: 4px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+      }
+
+      .item-link:hover {
+        background-color: #55a8a0;
+        color: white;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #003333;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .back-link:hover {
+        color: #55b2aa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1 class="aspMainHeader">Items List</h1>
+        <p class="Label16">Click on any item to view its details</p>
+      </div>
+
+      <ul class="item-list">
+        <li class="item-card">
+          <div class="item-title">Flight Operations Dashboard</div>
+          <div class="item-description">
+            Comprehensive dashboard for monitoring flight operations, including
+            real-time status updates, crew scheduling, and maintenance tracking.
+            Features advanced analytics and reporting capabilities.
+          </div>
+          <a href="details.html?itemId=flight-ops-001" class="item-link"
+            >View Details</a
+          >
+        </li>
+
+        <li class="item-card">
+          <div class="item-title">Catering Management System</div>
+          <div class="item-description">
+            Advanced catering management solution for airline operations.
+            Includes meal planning, inventory tracking, dietary restriction
+            management, and supplier coordination features.
+          </div>
+          <a href="details.html?itemId=catering-mgmt-002" class="item-link"
+            >View Details</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      // Add click handlers for navigation
+      document.addEventListener("DOMContentLoaded", function () {
+        const itemLinks = document.querySelectorAll(".item-link");
+
+        itemLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const href = this.getAttribute("href");
+
+            // Navigate to the details page
+            window.location.href = href;
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

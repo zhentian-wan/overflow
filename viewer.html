@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Viewer</title>
+    <link rel="stylesheet" href="src/StyleSheet.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .viewer-header {
+        background-color: #55b2aa;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .viewer-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      .viewer-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .btn-close {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      .btn-close:hover {
+        background-color: #c82333;
+        color: white;
+      }
+
+      .btn-download {
+        background-color: #28a745;
+        color: white;
+      }
+
+      .btn-download:hover {
+        background-color: #218838;
+        color: white;
+      }
+
+      .btn-print {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .btn-print:hover {
+        background-color: #5a6268;
+        color: white;
+      }
+
+      .viewer-content {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .pdf-container {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+
+      .pdf-header {
+        background-color: #f8f9fa;
+        padding: 15px 20px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .pdf-title {
+        font-weight: bold;
+        color: #003333;
+        margin: 0;
+      }
+
+      .pdf-meta {
+        color: #666;
+        font-size: 12px;
+      }
+
+      .pdf-content {
+        padding: 40px;
+        min-height: 600px;
+        background: linear-gradient(45deg, #f9f9f9 25%, transparent 25%),
+          linear-gradient(-45deg, #f9f9f9 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #f9f9f9 75%),
+          linear-gradient(-45deg, transparent 75%, #f9f9f9 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        position: relative;
+      }
+
+      .pdf-page {
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 40px;
+        font-family: "Times New Roman", serif;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      .pdf-page h1 {
+        color: #003333;
+        border-bottom: 2px solid #55b2aa;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+      }
+
+      .pdf-page h2 {
+        color: #55b2aa;
+        margin-top: 30px;
+        margin-bottom: 15px;
+      }
+
+      .pdf-page p {
+        margin-bottom: 15px;
+        text-align: justify;
+      }
+
+      .pdf-page ul {
+        margin-bottom: 20px;
+        padding-left: 20px;
+      }
+
+      .pdf-page li {
+        margin-bottom: 8px;
+      }
+
+      .pdf-footer {
+        background-color: #f8f9fa;
+        padding: 15px 20px;
+        border-top: 1px solid #ddd;
+        text-align: center;
+        color: #666;
+        font-size: 12px;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+      }
+
+      .zoom-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .zoom-btn {
+        padding: 6px 12px;
+        background-color: #55b2aa;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .zoom-btn:hover {
+        background-color: #55a8a0;
+      }
+
+      .zoom-level {
+        font-size: 12px;
+        color: #666;
+        margin: 0 10px;
+      }
+
+      @media (max-width: 768px) {
+        .viewer-header {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .viewer-controls {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .pdf-content {
+          padding: 20px;
+        }
+
+        .pdf-page {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viewer-header">
+      <h1 class="viewer-title" id="viewerTitle">PDF Viewer</h1>
+      <div class="viewer-controls">
+        <button class="btn btn-print" onclick="printPDF()">🖨️ Print</button>
+        <button class="btn btn-download" onclick="downloadPDF()">
+          ⬇️ Download
+        </button>
+        <button class="btn btn-close" onclick="closeViewer()">✕ Close</button>
+      </div>
+    </div>
+
+    <div class="viewer-content">
+      <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomOut()">🔍-</button>
+        <span class="zoom-level" id="zoomLevel">100%</span>
+        <button class="zoom-btn" onclick="zoomIn()">🔍+</button>
+        <button class="zoom-btn" onclick="fitToPage()">📄 Fit to Page</button>
+      </div>
+
+      <div class="pdf-container">
+        <div class="pdf-header">
+          <h2 class="pdf-title" id="pdfTitle">Loading...</h2>
+          <div class="pdf-meta" id="pdfMeta">
+            Loading document information...
+          </div>
+        </div>
+
+        <div class="pdf-content" id="pdfContent">
+          <div class="loading">Loading PDF document...</div>
+        </div>
+
+        <div class="pdf-footer">
+          <span id="pdfFooter">Document loaded successfully</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentZoom = 100;
+
+      // Mock PDF content for different items
+      const pdfContent = {
+        "flight-ops-001": {
+          title: "Flight Operations Dashboard - Technical Documentation",
+          meta: "Version 2.1.3 | Last Updated: January 15, 2024",
+          footer: "Flight Operations Dashboard Documentation | Page 1 of 1",
+          content: `
+            <h1>Flight Operations Dashboard</h1>
+            <h2>System Overview</h2>
+            <p>The Flight Operations Dashboard is a comprehensive web-based application designed to provide real-time monitoring and management of airline flight operations. This system serves as the central hub for flight dispatchers, operations managers, and crew members to access critical flight information.</p>
+            
+            <h2>Key Features</h2>
+            <ul>
+              <li><strong>Real-time Flight Tracking:</strong> Monitor flight status, delays, and cancellations in real-time</li>
+              <li><strong>Crew Management:</strong> Track crew assignments, schedules, and availability</li>
+              <li><strong>Maintenance Integration:</strong> View aircraft maintenance schedules and alerts</li>
+              <li><strong>Weather Integration:</strong> Access current weather conditions and forecasts</li>
+              <li><strong>Communication Tools:</strong> Built-in messaging and notification system</li>
+            </ul>
+
+            <h2>Technical Specifications</h2>
+            <p><strong>System Requirements:</strong></p>
+            <ul>
+              <li>Modern web browser (Chrome, Firefox, Safari, Edge)</li>
+              <li>JavaScript enabled</li>
+              <li>Minimum screen resolution: 1024x768</li>
+              <li>Internet connection for real-time updates</li>
+            </ul>
+
+            <h2>User Interface</h2>
+            <p>The dashboard features an intuitive, responsive design that adapts to different screen sizes and devices. The main interface includes:</p>
+            <ul>
+              <li>Flight status overview panel</li>
+              <li>Interactive flight map</li>
+              <li>Crew scheduling calendar</li>
+              <li>Maintenance alerts and notifications</li>
+              <li>Customizable widgets and reports</li>
+            </ul>
+
+            <h2>Security Features</h2>
+            <p>The system implements enterprise-grade security measures including:</p>
+            <ul>
+              <li>Role-based access control</li>
+              <li>Multi-factor authentication</li>
+              <li>Data encryption in transit and at rest</li>
+              <li>Audit logging and compliance reporting</li>
+            </ul>
+          `,
+        },
+        "catering-mgmt-002": {
+          title: "Catering Management System - User Manual",
+          meta: "Version 1.8.2 | Last Updated: January 14, 2024",
+          footer: "Catering Management System Documentation | Page 1 of 1",
+          content: `
+            <h1>Catering Management System</h1>
+            <h2>System Overview</h2>
+            <p>The Catering Management System is a specialized application designed to streamline and optimize airline catering operations. This comprehensive solution manages the entire catering workflow from meal planning to delivery coordination.</p>
+            
+            <h2>Core Functionality</h2>
+            <ul>
+              <li><strong>Meal Planning:</strong> Create and manage meal menus for different flight routes and passenger classes</li>
+              <li><strong>Inventory Management:</strong> Track catering supplies, ingredients, and equipment</li>
+              <li><strong>Dietary Management:</strong> Handle special dietary requirements and restrictions</li>
+              <li><strong>Supplier Coordination:</strong> Manage relationships with catering suppliers and vendors</li>
+              <li><strong>Cost Analysis:</strong> Monitor catering costs and optimize spending</li>
+            </ul>
+
+            <h2>Menu Management</h2>
+            <p>The system provides comprehensive menu management capabilities:</p>
+            <ul>
+              <li>Create seasonal and route-specific menus</li>
+              <li>Manage dietary restrictions and special meals</li>
+              <li>Track nutritional information and allergens</li>
+              <li>Generate menu reports and analytics</li>
+            </ul>
+
+            <h2>Inventory Control</h2>
+            <p>Advanced inventory management features include:</p>
+            <ul>
+              <li>Real-time inventory tracking</li>
+              <li>Automated reorder notifications</li>
+              <li>Supplier performance monitoring</li>
+              <li>Waste reduction analytics</li>
+            </ul>
+
+            <h2>Quality Assurance</h2>
+            <p>The system includes built-in quality control measures:</p>
+            <ul>
+              <li>Temperature monitoring and alerts</li>
+              <li>Quality inspection checklists</li>
+              <li>Supplier certification tracking</li>
+              <li>Compliance reporting and documentation</li>
+            </ul>
+
+            <h2>Integration Capabilities</h2>
+            <p>The Catering Management System integrates seamlessly with:</p>
+            <ul>
+              <li>Flight operations systems</li>
+              <li>Passenger management databases</li>
+              <li>Financial and accounting systems</li>
+              <li>Third-party supplier systems</li>
+            </ul>
+          `,
+        },
+      };
+
+      // Get item ID from URL parameters
+      function getItemIdFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get("itemId") || "flight-ops-001";
+      }
+
+      // Load PDF content based on item ID
+      function loadPDFContent() {
+        const itemId = getItemIdFromURL();
+        const content = pdfContent[itemId] || pdfContent["flight-ops-001"];
+
+        // Update page title
+        document.title = content.title;
+
+        // Update header
+        document.getElementById("viewerTitle").textContent = content.title;
+        document.getElementById("pdfTitle").textContent = content.title;
+        document.getElementById("pdfMeta").textContent = content.meta;
+        document.getElementById("pdfFooter").textContent = content.footer;
+
+        // Update content
+        document.getElementById("pdfContent").innerHTML = `
+          <div class="pdf-page" id="pdfPage">
+            ${content.content}
+          </div>
+        `;
+      }
+
+      // Zoom functions
+      function zoomIn() {
+        currentZoom = Math.min(currentZoom + 25, 200);
+        updateZoom();
+      }
+
+      function zoomOut() {
+        currentZoom = Math.max(currentZoom - 25, 50);
+        updateZoom();
+      }
+
+      function fitToPage() {
+        currentZoom = 100;
+        updateZoom();
+      }
+
+      function updateZoom() {
+        const pdfPage = document.getElementById("pdfPage");
+        if (pdfPage) {
+          pdfPage.style.transform = `scale(${currentZoom / 100})`;
+          pdfPage.style.transformOrigin = "top left";
+        }
+        document.getElementById("zoomLevel").textContent = `${currentZoom}%`;
+      }
+
+      // Action functions
+      function printPDF() {
+        window.print();
+      }
+
+      function downloadPDF() {
+        const itemId = getItemIdFromURL();
+        const filename = `document-${itemId}.pdf`;
+        alert(
+          `Downloading ${filename}...\n\nIn a real application, this would download the actual PDF file.`
+        );
+      }
+
+      function closeViewer() {
+        window.close();
+      }
+
+      // Initialize viewer
+      document.addEventListener("DOMContentLoaded", function () {
+        loadPDFContent();
+      });
+    </script>
+  </body>
+</html>
