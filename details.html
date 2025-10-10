@@ -206,7 +206,26 @@
 
       <div class="button-group">
         <a href="window.html" class="btn btn-back">← Back to List</a>
-        <button class="btn btn-pdf" onclick="openPDF()">📄 Open PDF</button>
+        <a href="javascript:void(0);" class="btn btn-pdf" onclick="openPDF()"
+          >void(0)</a
+        >
+        <a href="viewer.html?itemId=" id="openPdfLink" class="btn btn-pdf"
+          >📄 Open PDF</a
+        >
+        <script>
+          // Set PDF viewer link on load
+          document.addEventListener("DOMContentLoaded", function () {
+            const itemId =
+              new URLSearchParams(window.location.search).get("itemId") ||
+              "flight-ops-001";
+            const pdfLink = document.getElementById("openPdfLink");
+            pdfLink.href = `viewer.html?itemId=${encodeURIComponent(itemId)}`;
+            pdfLink.addEventListener("click", function (e) {
+              e.preventDefault();
+              window.open(pdfLink.href, "_blank");
+            });
+          });
+        </script>
       </div>
     </div>
 
