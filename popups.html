@@ -89,11 +89,11 @@
       <h1>PDF Popup Window Opener</h1>
 
       <div class="instructions">
-        <strong>Instructions:</strong>
+        <strong>Open & focus new tab:</strong>
         <ul>
-          <li>Click "Open Sample PDF" to open a sample PDF in a popup window</li>
-          <li>Click "Open About Blank" to open a simple page with Hello World</li>
-          <li>Click "Open Microsoft Login" to open Microsoft's login page</li>
+          <li>Click "Open Sample PDF" to open a sample PDF document in a popup window</li>
+          <li>Click "Open About blank" to open a simple Hello World page in a popup window</li>
+          <li>Click "Open Microsoft Login" to open Microsoft's login page in a popup window</li>
           <li>If a popup is already open, clicking the button will focus on the existing window</li>
         </ul>
       </div>
@@ -102,6 +102,26 @@
         <button id="openSamplePDF" onclick="openSamplePDF()">Open Sample PDF</button>
         <button id="openAboutBlank" onclick="openAboutBlank()">Open About blank</button>
         <button id="openLogin" onclick="openMicrosoftLogin()">Open Microsoft Login</button>
+      </div>
+
+      <div class="instructions" style="margin-top: 30px">
+        <strong>Open & focus + navigation in new tab:</strong>
+        <ul>
+          <li>
+            Click "Focus PDF & Navigate" to focus the PDF popup (or open it if closed) and reload the PDF document
+          </li>
+          <li>
+            Click "Focus Microsoft Login & Navigate" to focus the Microsoft login popup (or open it if closed) and
+            reload the login page
+          </li>
+          <li>These buttons work with both existing and new popup windows for PDF and Microsoft Login</li>
+          <li>Useful for testing popup focus behavior and page reloading functionality</li>
+        </ul>
+      </div>
+
+      <div class="button-group">
+        <button id="focusPDFAndNavigate" onclick="focusPDFAndNavigate()">Focus PDF & Navigate</button>
+        <button id="focusLoginAndNavigate" onclick="focusLoginAndNavigate()">Focus Microsoft Login & Navigate</button>
       </div>
 
       <div id="status" class="status" style="display: none"></div>
@@ -264,6 +284,83 @@
       function openMicrosoftLogin() {
         const microsoftLoginUrl = 'https://login.microsoftonline.com'
         openPDFInPopup(microsoftLoginUrl, 'microsoftLogin')
+      }
+
+      function focusPDFAndNavigate() {
+        try {
+          // Check if PDF popup exists
+          if (popupWindows.has('samplePDF')) {
+            const pdfWindow = popupWindows.get('samplePDF')
+
+            // Check if window is still open
+            if (!pdfWindow.closed) {
+              // Focus the existing window
+              pdfWindow.focus()
+
+              // Navigate back to the original PDF URL
+              pdfWindow.location.href = samplePDFUrl
+
+              showStatus('Focused existing PDF popup and navigated to target site')
+              return pdfWindow
+            } else {
+              // Remove closed window from our tracking
+              popupWindows.delete('samplePDF')
+            }
+          }
+
+          // If no existing window or it was closed, create a new one
+          const pdfWindow = openPDFInPopup(samplePDFUrl, 'samplePDF')
+          if (pdfWindow) {
+            // Wait a moment for the window to load, then navigate
+            setTimeout(() => {
+              pdfWindow.location.href = samplePDFUrl
+              showStatus('Opened new PDF popup and navigated to target site')
+            }, 500)
+          }
+          return pdfWindow
+        } catch (error) {
+          showStatus(`Error opening/focusing PDF and navigating: ${error.message}`, true)
+          return null
+        }
+      }
+
+      function focusLoginAndNavigate() {
+        try {
+          // Check if Microsoft login popup exists
+          if (popupWindows.has('microsoftLogin')) {
+            const loginWindow = popupWindows.get('microsoftLogin')
+
+            // Check if window is still open
+            if (!loginWindow.closed) {
+              // Focus the existing window
+              loginWindow.focus()
+
+              // Navigate back to the original Microsoft login URL
+              loginWindow.location.href = microsoftLoginUrl
+
+              showStatus('Focused existing Microsoft login popup and navigated to target site')
+              return loginWindow
+            } else {
+              // Remove closed window from our tracking
+              popupWindows.delete('microsoftLogin')
+            }
+          }
+
+          // If no existing window or it was closed, create a new one
+          const microsoftLoginUrl = 'https://login.microsoftonline.com'
+          const loginWindow = openPDFInPopup(microsoftLoginUrl, 'microsoftLogin')
+          if (loginWindow) {
+            // Wait a moment for the window to load, then navigate
+            setTimeout(() => {
+              loginWindow.location.href = microsoftLoginUrl
+              showStatus('Opened new Microsoft login popup and navigated to target site')
+            }, 500)
+          }
+          return loginWindow
+        } catch (error) {
+          showStatus(`Error opening/focusing Microsoft login and navigating: ${error.message}`, true)
+          return null
+        }
       }
     </script>
   </body>
