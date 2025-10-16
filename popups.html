@@ -76,7 +76,6 @@
         <ul>
           <li>Click "Open Sample PDF" to open a sample PDF document in a popup window</li>
           <li>Click "Open About blank" to open a simple Hello World page in a popup window</li>
-          <li>Click "Open Microsoft Login" to open Microsoft's login page in a popup window</li>
           <li>If a popup is already open, clicking the button will focus on the existing window</li>
         </ul>
       </div>
@@ -86,7 +85,6 @@
           >Open Sample PDF</a
         >
         <a href="#" id="openAboutBlank">Open About blank</a>
-        <a href="https://login.microsoftonline.com" id="openLogin">Open Microsoft Login</a>
       </div>
 
       <div class="instructions" style="margin-top: 30px">
@@ -95,18 +93,12 @@
           <li>
             Click "Focus PDF & Navigate" to focus the PDF popup (or open it if closed) and reload the PDF document
           </li>
-          <li>
-            Click "Focus Microsoft Login & Navigate" to focus the Microsoft login popup (or open it if closed) and
-            reload the login page
-          </li>
-          <li>These buttons work with both existing and new popup windows for PDF and Microsoft Login</li>
           <li>Useful for testing popup focus behavior and page reloading functionality</li>
         </ul>
       </div>
 
       <div class="button-group">
         <a href="#" id="focusPDFAndNavigate">Focus PDF & Navigate</a>
-        <a href="#" id="focusLoginAndNavigate">Focus Microsoft Login & Navigate</a>
       </div>
     </div>
 
@@ -260,14 +252,6 @@
         }
       }
 
-      function openMicrosoftLogin() {
-        try {
-          popupManager.openOrFocus(CONFIG.urls.microsoftLogin, 'microsoftLogin', CONFIG.windowSettings.pdf)
-        } catch (error) {
-          console.error('Error opening Microsoft login:', error)
-        }
-      }
-
       function focusPDFAndNavigate() {
         try {
           const existingPopup = popupManager.focusAndNavigate('samplePDF', CONFIG.urls.samplePDF)
@@ -285,27 +269,6 @@
         }
       }
 
-      function focusLoginAndNavigate() {
-        try {
-          const existingPopup = popupManager.focusAndNavigate('microsoftLogin', CONFIG.urls.microsoftLogin)
-          if (!existingPopup) {
-            // Create new popup if none exists
-            const newPopup = popupManager.openOrFocus(
-              CONFIG.urls.microsoftLogin,
-              'microsoftLogin',
-              CONFIG.windowSettings.pdf,
-            )
-            if (newPopup) {
-              setTimeout(() => {
-                newPopup.location.href = CONFIG.urls.microsoftLogin
-              }, 500)
-            }
-          }
-        } catch (error) {
-          console.error('Error focusing login and navigate:', error)
-        }
-      }
-
       // Event listeners - clean separation of concerns
       document.addEventListener('DOMContentLoaded', () => {
         try {
@@ -319,19 +282,9 @@
             openAboutBlank()
           })
 
-          document.getElementById('openLogin').addEventListener('click', (e) => {
-            e.preventDefault()
-            openMicrosoftLogin()
-          })
-
           document.getElementById('focusPDFAndNavigate').addEventListener('click', (e) => {
             e.preventDefault()
             focusPDFAndNavigate()
-          })
-
-          document.getElementById('focusLoginAndNavigate').addEventListener('click', (e) => {
-            e.preventDefault()
-            focusLoginAndNavigate()
           })
         } catch (error) {
           console.error('Error setting up event listeners:', error)
