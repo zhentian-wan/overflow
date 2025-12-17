@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Hidden iframe download test</title>
+	</head>
+	<body>
+		<button id="btn">Download via hidden iframe</button>
+
+		<script>
+			const PDF_URL =
+				'https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf'
+
+			document.getElementById('btn').addEventListener('click', () => {
+				const iframe = document.createElement('iframe')
+				iframe.style.position = 'fixed'
+				iframe.style.left = '-9999px'
+				iframe.style.top = '-9999px'
+				iframe.style.width = '1px'
+				iframe.style.height = '1px'
+				iframe.style.opacity = '0'
+				iframe.setAttribute('aria-hidden', 'true')
+
+				iframe.src = PDF_URL
+
+				document.body.appendChild(iframe)
+
+				// cleanup later
+				setTimeout(() => {
+					iframe.remove()
+				}, 30_000)
+			})
+		</script>
+	</body>
+</html>
