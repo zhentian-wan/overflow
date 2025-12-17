@@ -6,14 +6,14 @@
 		<title>Hidden iframe download test</title>
 	</head>
 	<body>
-		<button id="btn">Download via hidden iframe!</button>
+		<button id="btn">Download via hidden iframe</button>
 
         <button id="btn2">Download via a tag</button>
 		<script>
 			const PDF_URL =
 				'https://download.microsoft.com/download/d/0/0/d0001082-eedc-41e2-a7c2-4bd05a7fb63a/BusinessApps_ReleaseNotes_v18.1.4.pdf'
-
-			document.getElementById('btn').addEventListener('click', () => {
+setTimeout(() => {
+				document.getElementById('btn').addEventListener('click', () => {
 				const iframe = document.createElement('iframe')
 				iframe.style.visibility = 'hidden'
 				iframe.style.display = 'none'
@@ -26,12 +26,15 @@
 					iframe.remove()
 				}, 30_000)
 			})
+}, 100)
+
 		</script>
 
 		<script>
 			const url = 'https://zhentian-wan.github.io/overflow/PDF_Form_File.pdf'
 			document.getElementById('btn2').onclick = () => {
-				const a = document.createElement('a')
+setTimeout(() => {
+					const a = document.createElement('a')
 				a.href = url
 				a.target = '_blank'
 				a.download=''
@@ -40,6 +43,7 @@
 				document.body.appendChild(a)
 				a.click()
 				a.remove()
+}, 100)
 			}
 		</script>
 	</body>
