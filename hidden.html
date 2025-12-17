@@ -8,7 +8,7 @@
 	<body>
 		<button id="btn">Download via hidden iframe</button>
 
-        <button id="btn2">Download via a</button>
+        <button id="btn2">Download via a tag</button>
 		<script>
 			const PDF_URL =
 				'./PDF_Form_File.pdf'
@@ -40,6 +40,7 @@
 		const a = document.createElement('a')
 		a.href = url
 		a.target = '_blank'
+        a.download=''
 		a.rel = 'noopener noreferrer'
 		a.style.display = 'none'
 		document.body.appendChild(a)
