@@ -11,7 +11,7 @@
         <button id="btn2">Download via a tag</button>
 		<script>
 			const PDF_URL =
-				'https://zhentian-wan.github.io/overflow/PDF_Form_File.pdf'
+				'https://download.microsoft.com/download/d/0/0/d0001082-eedc-41e2-a7c2-4bd05a7fb63a/BusinessApps_ReleaseNotes_v18.1.4.pdf'
 
 			document.getElementById('btn').addEventListener('click', () => {
 				const iframe = document.createElement('iframe')
@@ -28,19 +28,19 @@
 			})
 		</script>
 
-<script>
-	const url = 'https://zhentian-wan.github.io/overflow/PDF_Form_File.pdf'
-	document.getElementById('btn2').onclick = () => {
-		const a = document.createElement('a')
-		a.href = url
-		a.target = '_blank'
-        a.download=''
-		a.rel = 'noopener noreferrer'
-		a.style.display = 'none'
-		document.body.appendChild(a)
-		a.click()
-		a.remove()
-	}
-</script>
+		<script>
+			const url = 'https://zhentian-wan.github.io/overflow/PDF_Form_File.pdf'
+			document.getElementById('btn2').onclick = () => {
+				const a = document.createElement('a')
+				a.href = url
+				a.target = '_blank'
+				a.download=''
+				a.rel = 'noopener noreferrer'
+				a.style.display = 'none'
+				document.body.appendChild(a)
+				a.click()
+				a.remove()
+			}
+		</script>
 	</body>
 </html>
