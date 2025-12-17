@@ -6,23 +6,17 @@
 		<title>Hidden iframe download test</title>
 	</head>
 	<body>
-		<button id="btn">Download via hidden iframe</button>
+		<button id="btn">Download via hidden iframe!</button>
 
         <button id="btn2">Download via a tag</button>
 		<script>
 			const PDF_URL =
-				'./PDF_Form_File.pdf'
+				'https://zhentian-wan.github.io/overflow/PDF_Form_File.pdf'
 
 			document.getElementById('btn').addEventListener('click', () => {
 				const iframe = document.createElement('iframe')
-				iframe.style.position = 'fixed'
-				iframe.style.left = '-9999px'
-				iframe.style.top = '-9999px'
-				iframe.style.width = '1px'
-				iframe.style.height = '1px'
-				iframe.style.opacity = '0'
-				iframe.setAttribute('aria-hidden', 'true')
-
+				iframe.style.visibility = 'hidden'
+				iframe.style.display = 'none'
 				iframe.src = PDF_URL
 
 				document.body.appendChild(iframe)
@@ -35,7 +29,7 @@
 		</script>
 
 <script>
-	const url = './PDF_Form_File.pdf'
+	const url = 'https://zhentian-wan.github.io/overflow/PDF_Form_File.pdf'
 	document.getElementById('btn2').onclick = () => {
 		const a = document.createElement('a')
 		a.href = url
