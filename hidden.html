@@ -8,6 +8,7 @@
 	<body>
 		<button id="btn">Download via hidden iframe</button>
 
+        <button id="btn">Download via a</button>
 		<script>
 			const PDF_URL =
 				'https://qa-tools-appsulate.onrender.com/assets/PDF_Form_File.pdf'
@@ -32,5 +33,19 @@
 				}, 30_000)
 			})
 		</script>
+
+<script>
+	const url = 'https://qa-tools-appsulate.onrender.com/assets/PDF_Form_File.pdf'
+	document.getElementById('btn').onclick = () => {
+		const a = document.createElement('a')
+		a.href = url
+		a.target = '_blank'
+		a.rel = 'noopener noreferrer'
+		a.style.display = 'none'
+		document.body.appendChild(a)
+		a.click()
+		a.remove()
+	}
+</script>
 	</body>
 </html>
