@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <input type="file" class="foo" id="customUpload" />
+    <input id="Button1" type="button" value="Upload" onclick="sendFile()" />
+    <script>
+        function sendFile() {
+            var formData = new FormData(),
+                file = document.getElementById("customUpload").files[0],
+                xhr = new XMLHttpRequest();
+            var chunk = file.slice(0, file.size)
+            formData.append("file", chunk);
+            xhr.open("POST", "http://google.com");
+
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
