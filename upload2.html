@@ -63,7 +63,7 @@
 			// BUG: click handler runs BEFORE submit handler -> clears file inputs deterministically
 			submitBtn.addEventListener('click', () => {
 				log('\n[click] resetting form BEFORE submit handler runs (bug)')
-				form.reset()
+				// form.reset()
 			})
 
 			form.addEventListener('submit', e => {
