@@ -1,22 +1,84 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <input type="file" class="foo" id="customUpload" />
-    <input id="Button1" type="button" value="Upload" onclick="sendFile()" />
-    <script>
-        function sendFile() {
-            var formData = new FormData(),
-                file = document.getElementById("customUpload").files[0],
-                xhr = new XMLHttpRequest();
-            var chunk = file.slice(0, file.size)
-            formData.append("file", chunk);
-            xhr.open("POST", "http://google.com");
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>ERR_UPLOAD_FILE_CHANGED repro (files cleared before submit)</title>
+	</head>
+	<body>
+		<h1>Repro: total_size becomes 0 on submit</h1>
 
-            xhr.send(formData);
-        }
-    </script>
-</body>
+		<form id="f">
+			<div>
+				<label>Text: <input id="t" name="t" type="text" /></label>
+			</div>
+
+			<div>
+				<label>File 1: <input id="a" name="a" type="file" /></label>
+			</div>
+			<div>
+				<label>File 2: <input id="b" name="b" type="file" /></label>
+			</div>
+			<div>
+				<label>File 3: <input id="c" name="c" type="file" /></label>
+			</div>
+
+			<button id="submitBtn" type="submit">Submit</button>
+		</form>
+
+		<pre id="log"></pre>
+
+		<script>
+			const logEl = document.getElementById('log')
+			const form = document.getElementById('f')
+			const submitBtn = document.getElementById('submitBtn')
+
+			const ids = ['a', 'b', 'c']
+			const inputs = ids.map(id => document.getElementById(id))
+
+			const log = (...args) => {
+				logEl.textContent += args.map(x => (typeof x === 'string' ? x : JSON.stringify(x, null, 2))).join(' ') + '\n'
+			}
+
+			const snap = label => {
+				const info = inputs.map(el => {
+					const f = el.files && el.files[0]
+					return {
+						id: el.id,
+						len: el.files ? el.files.length : -1,
+						file: f
+							? { name: f.name, size: f.size, type: f.type, lastModified: f.lastModified }
+							: null,
+					}
+				})
+
+				const totalSize = info.reduce((sum, x) => sum + (x.file?.size ?? 0), 0)
+				log(`\n=== ${label} ===`)
+				log({ info, totalSize })
+			}
+
+			// Log immediately after selection (usually non-zero)
+			inputs.forEach(el => el.addEventListener('change', () => snap('onChange')))
+
+			// BUG: click handler runs BEFORE submit handler -> clears file inputs deterministically
+			submitBtn.addEventListener('click', () => {
+				log('\n[click] resetting form BEFORE submit handler runs (bug)')
+				form.reset()
+			})
+
+			form.addEventListener('submit', e => {
+				e.preventDefault()
+
+				snap('onSubmit (after reset)')
+
+				// Show what FormData contains
+				const fd = new FormData(form)
+				log('\nFormData entries:')
+				for (const [k, v] of fd.entries()) {
+					if (v instanceof File) log(k, { name: v.name, size: v.size, type: v.type })
+					else log(k, v)
+				}
+			})
+		</script>
+	</body>
 </html>
