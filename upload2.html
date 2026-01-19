@@ -64,7 +64,7 @@
 			submitBtn.addEventListener('click', () => {
 				log('\n[click] resetting form BEFORE submit handler runs (bug)')
 				// form.reset()
-				inputs.forEach(el => el.value = '')
+				inputs.forEach(el => el.value = el.value)
 			})
 
 			form.addEventListener('submit', e => {
