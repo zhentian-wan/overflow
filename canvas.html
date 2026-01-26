@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DLP Canvas Test Playground</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 2rem;
+    }
+
+    .description {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+
+    .info-list {
+      margin-bottom: 25px;
+      padding-left: 25px;
+      color: #555;
+    }
+
+    .info-list li {
+      margin-bottom: 8px;
+    }
+
+    #testCanvas {
+      width: 100%;
+      max-width: 1200px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background: #fafafa;
+      display: block;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #5568d3;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>DLP Canvas Test Playground</h1>
+    <p class="description">This page contains a canvas with various text formats for testing DLP functionality:</p>
+    <ul class="info-list">
+      <li>Email addresses</li>
+      <li>Credit card numbers</li>
+      <li>Phone numbers</li>
+      <li>Free text</li>
+    </ul>
+    <canvas id="testCanvas" width="1200"></canvas>
+    <div class="controls">
+      <button id="refreshBtn" class="btn">Refresh Canvas</button>
+    </div>
+  </div>
+  <script>
+    // Sample data for DLP testing
+    const testData = {
+      emails: [
+        'john.doe@example.com',
+        'jane.smith@company.org',
+        'contact@business.net',
+        'support@service.io',
+        'admin@domain.co.uk'
+      ],
+      creditCards: [
+        '4532-1234-5678-9010',
+        '5555-4444-3333-2222',
+        '4111-1111-1111-1111',
+        '6011-1111-1111-1111',
+        '3782-822463-10005'
+      ],
+      phoneNumbers: [
+        '+1-555-123-4567',
+        '(555) 987-6543',
+        '555.234.5678',
+        '+44 20 7946 0958',
+        '1-800-555-0199'
+      ],
+      freeText: [
+        'This is some regular text content that should not be flagged.',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'The quick brown fox jumps over the lazy dog.',
+        'Sample paragraph for testing purposes only.',
+        'Random text without any sensitive information.'
+      ]
+    }
+
+    function getRandomColor(type) {
+      const colors = {
+        email: '#e74c3c',
+        creditCard: '#c0392b',
+        phone: '#3498db',
+        freeText: '#2c3e50'
+      }
+      return colors[type] || '#000000'
+    }
+
+    function calculateRequiredHeight() {
+      const canvas = document.getElementById('testCanvas')
+      if (!canvas) return 800
+
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return 800
+
+      // Set default font for measurements
+      ctx.font = '20px Arial'
+      ctx.textBaseline = 'top'
+
+      const lineHeight = 35
+      const leftMargin = 30
+      let currentY = 40
+
+      // Calculate emails section height
+      ctx.font = 'bold 24px Arial'
+      currentY += lineHeight + 10 // Header
+      ctx.font = '20px Arial'
+      currentY += testData.emails.length * lineHeight
+      currentY += 30 // Spacing
+
+      // Calculate credit cards section height
+      ctx.font = 'bold 24px Arial'
+      currentY += lineHeight + 10 // Header
+      ctx.font = '20px Arial'
+      currentY += testData.creditCards.length * lineHeight
+      currentY += 30 // Spacing
+
+      // Calculate phone numbers section height
+      ctx.font = 'bold 24px Arial'
+      currentY += lineHeight + 10 // Header
+      ctx.font = '20px Arial'
+      currentY += testData.phoneNumbers.length * lineHeight
+      currentY += 30 // Spacing
+
+      // Calculate free text section height
+      ctx.font = 'bold 24px Arial'
+      currentY += lineHeight + 10 // Header
+      ctx.font = '18px Arial'
+      const maxWidth = canvas.width - leftMargin * 2
+      testData.freeText.forEach((text) => {
+        const words = text.split(' ')
+        let line = ''
+        let lineY = currentY
+
+        words.forEach((word) => {
+          const testLine = line + word + ' '
+          const metrics = ctx.measureText(testLine)
+          const testWidth = metrics.width
+
+          if (testWidth > maxWidth && line.length > 0) {
+            line = word + ' '
+            lineY += lineHeight
+          } else {
+            line = testLine
+          }
+        })
+
+        if (line.length > 0) {
+          lineY += lineHeight
+        }
+
+        currentY = lineY + 10
+      })
+
+      // Add bottom padding
+      return currentY + 40
+    }
+
+    function renderCanvas() {
+      const canvas = document.getElementById('testCanvas')
+      if (!canvas) {
+        console.error('Canvas element not found')
+        return
+      }
+
+      // Calculate and set canvas height dynamically
+      const requiredHeight = calculateRequiredHeight()
+      canvas.height = requiredHeight
+
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        console.error('Could not get 2D context')
+        return
+      }
+
+      // Clear canvas
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      // Set default font
+      ctx.font = '20px Arial'
+      ctx.textBaseline = 'top'
+
+      const items = []
+      let currentY = 40
+      const padding = 20
+      const lineHeight = 35
+      const leftMargin = 30
+
+      // Render emails
+      ctx.fillStyle = '#e74c3c'
+      ctx.font = 'bold 24px Arial'
+      ctx.fillText('Email Addresses:', leftMargin, currentY)
+      currentY += lineHeight + 10
+
+      ctx.font = '20px Arial'
+      testData.emails.forEach((email) => {
+        ctx.fillStyle = getRandomColor('email')
+        ctx.fillText(email, leftMargin, currentY)
+        items.push({ text: email, x: leftMargin, y: currentY, type: 'email' })
+        currentY += lineHeight
+      })
+
+      currentY += 30
+
+      // Render credit cards
+      ctx.fillStyle = '#c0392b'
+      ctx.font = 'bold 24px Arial'
+      ctx.fillText('Credit Card Numbers:', leftMargin, currentY)
+      currentY += lineHeight + 10
+
+      ctx.font = '20px Arial'
+      testData.creditCards.forEach((card) => {
+        ctx.fillStyle = getRandomColor('creditCard')
+        ctx.fillText(card, leftMargin, currentY)
+        items.push({ text: card, x: leftMargin, y: currentY, type: 'creditCard' })
+        currentY += lineHeight
+      })
+
+      currentY += 30
+
+      // Render phone numbers
+      ctx.fillStyle = '#3498db'
+      ctx.font = 'bold 24px Arial'
+      ctx.fillText('Phone Numbers:', leftMargin, currentY)
+      currentY += lineHeight + 10
+
+      ctx.font = '20px Arial'
+      testData.phoneNumbers.forEach((phone) => {
+        ctx.fillStyle = getRandomColor('phone')
+        ctx.fillText(phone, leftMargin, currentY)
+        items.push({ text: phone, x: leftMargin, y: currentY, type: 'phone' })
+        currentY += lineHeight
+      })
+
+      currentY += 30
+
+      // Render free text
+      ctx.fillStyle = '#2c3e50'
+      ctx.font = 'bold 24px Arial'
+      ctx.fillText('Free Text:', leftMargin, currentY)
+      currentY += lineHeight + 10
+
+      ctx.font = '18px Arial'
+      testData.freeText.forEach((text) => {
+        // Wrap text if too long
+        const maxWidth = canvas.width - leftMargin * 2
+        const words = text.split(' ')
+        let line = ''
+        let lineY = currentY
+
+        words.forEach((word) => {
+          const testLine = line + word + ' '
+          const metrics = ctx.measureText(testLine)
+          const testWidth = metrics.width
+
+          if (testWidth > maxWidth && line.length > 0) {
+            ctx.fillStyle = getRandomColor('freeText')
+            ctx.fillText(line, leftMargin, lineY)
+            items.push({ text: line.trim(), x: leftMargin, y: lineY, type: 'freeText' })
+            line = word + ' '
+            lineY += lineHeight
+          } else {
+            line = testLine
+          }
+        })
+
+        if (line.length > 0) {
+          ctx.fillStyle = getRandomColor('freeText')
+          ctx.fillText(line, leftMargin, lineY)
+          items.push({ text: line.trim(), x: leftMargin, y: lineY, type: 'freeText' })
+          lineY += lineHeight
+        }
+
+        currentY = lineY + 10
+      })
+
+      // Store items for potential future use
+      window.canvasTextItems = items
+    }
+
+    // Initialize canvas on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCanvas()
+
+      // Add refresh button functionality
+      const refreshBtn = document.getElementById('refreshBtn')
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+          renderCanvas()
+        })
+      }
+    })
+  </script>
+</body>
+</html>
