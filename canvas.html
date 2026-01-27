@@ -129,7 +129,53 @@
           "
         />
         <button class="btn" id="addCardBtn">Add Card</button>
+      </div>
+      <div class="controls" style="margin-bottom: 20px">
+        <button class="btn" id="partialMaskBtn" style="background: #27ae60">
+          Enable Partial Masking
+        </button>
+        <button class="btn" id="paddingBtn" style="background: #f39c12; margin-left: 10px">
+          Enable Padding
+        </button>
+        <script>
+          // Partial masking state management
+          window.partialMaskingEnabled = false;
+          // Padding state management
+          window.paddingEnabled = false;
+          document.addEventListener("DOMContentLoaded", function () {
+            const partialMaskBtn = document.getElementById("partialMaskBtn");
+            partialMaskBtn.addEventListener("click", function () {
+              window.partialMaskingEnabled = !window.partialMaskingEnabled;
+              partialMaskBtn.textContent = window.partialMaskingEnabled
+                ? "Disable Partial Masking"
+                : "Enable Partial Masking";
+              partialMaskBtn.style.background = window.partialMaskingEnabled
+                ? "#e74c3c"
+                : "#27ae60";
+              // Re-render canvas to apply new masking mode
+              if (typeof renderCanvas === "function") {
+                renderCanvas();
+              }
+            });
 
+            const paddingBtn = document.getElementById("paddingBtn");
+            paddingBtn.addEventListener("click", function () {
+              window.paddingEnabled = !window.paddingEnabled;
+              paddingBtn.textContent = window.paddingEnabled
+                ? "Disable Padding"
+                : "Enable Padding";
+              paddingBtn.style.background = window.paddingEnabled
+                ? "#e67e22"
+                : "#f39c12";
+              // Re-render canvas to apply new padding mode
+              if (typeof renderCanvas === "function") {
+                renderCanvas();
+              }
+            });
+          });
+        </script>
+      </div>
+      <div class="controls">
         <script>
           // Helper functions copied from src/content/content.ts for frontend validation
           function isEmail(text) {
