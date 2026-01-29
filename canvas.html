@@ -97,7 +97,7 @@
       <ul class="info-list">
         <li>Email addresses</li>
         <li>Credit card numbers</li>
-        <li>Phone numbers</li>
+        <li>SSN</li>
         <li>Free text</li>
       </ul>
       <div class="controls">
@@ -242,7 +242,7 @@
           "6011-1111-1111-1111",
           "3782-822463-10005",
         ],
-        phoneNumbers: [
+        ssn: [
           "+1-555-123-4567",
           "(555) 987-6543",
           "555.234.5678",
@@ -297,11 +297,11 @@
         currentY += testData.creditCards.length * lineHeight;
         currentY += 30; // Spacing
 
-        // Calculate phone numbers section height
+        // Calculate SSN section height
         ctx.font = "bold 24px Arial";
         currentY += lineHeight + 10; // Header
         ctx.font = "20px Arial";
-        currentY += testData.phoneNumbers.length * lineHeight;
+        currentY += testData.ssn.length * lineHeight;
         currentY += 30; // Spacing
 
         // Calculate free text section height
@@ -411,14 +411,14 @@
 
         currentY += 30;
 
-        // Render phone numbers
+        // Render SSN
         ctx.fillStyle = "#3498db";
         ctx.font = "bold 24px Arial";
-        ctx.fillText("Phone Numbers:", leftMargin, currentY);
+        ctx.fillText("SSN:", leftMargin, currentY);
         currentY += lineHeight + 10;
 
         ctx.font = "20px Arial";
-        testData.phoneNumbers.forEach((phone) => {
+        testData.ssn.forEach((phone) => {
           ctx.fillStyle = getRandomColor("phone");
           ctx.fillText(phone, leftMargin, currentY);
           items.push({
