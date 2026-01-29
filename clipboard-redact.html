@@ -88,7 +88,11 @@
       </section>
     </div>
     <script>
-      const leftContent = `Please review the following information for your records. You can reach our support team at (555) 123-4567 Monday through Friday from 9 AM to 5 PM Eastern. For identity verification we may ask for the last four digits of your SSN; a typical format is 123-45-6789. When making payments use the card ending in 4242: the full number is 4532 1488 0343 4242 and the expiration is 12/28. We will send a confirmation to john.doe@example.com within 24 hours. Keep this email secure and do not share your login credentials with anyone. If you notice any suspicious activity on the account ending in 6467 contact us immediately at 1-800-555-0199. Our fraud department is available around the clock. You may also write to support@company.example.com with your full name and the phone number we have on file.`
+      const SSN = '489-36-8350'
+      const CARD_NUMBER = '4929-3813-3266-4925'
+      const PHONE = '451-80-3526'
+      const EMAIL = 'john.doe@example.com'
+      const leftContent = `Please review the following information for your records. You can reach our support team at (${PHONE}) Monday through Friday from 9 AM to 5 PM Eastern. For identity verification we may ask for the last four digits of your SSN; a typical format is ${SSN}. When making payments use the card ending in 4925: the full number is ${CARD_NUMBER} and the expiration is 12/28. We will send a confirmation to ${EMAIL} within 24 hours. Keep this email secure and do not share your login credentials with anyone. If you notice any suspicious activity on the account ending in 6467 contact us immediately at ${PHONE}. Our fraud department is available around the clock. You may also write to support@company.example.com with your full name and the phone number we have on file.`
 
       document.getElementById('left-textarea').value = leftContent
       document.getElementById('left-contenteditable').textContent = leftContent
