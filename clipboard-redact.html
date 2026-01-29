@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clipboard redaction</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 1rem;
+        font-family: system-ui, sans-serif;
+      }
+      .layout {
+        display: flex;
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .section h2 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1rem;
+        color: #333;
+      }
+      textarea,
+      [contenteditable] {
+        min-height: 80px;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font: inherit;
+      }
+      textarea {
+        min-height: 200px;
+        width: 100%;
+      }
+      [contenteditable] {
+        background: #fafafa;
+      }
+      .section p {
+        margin: 0;
+        padding: 0.5rem;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        min-height: 2em;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font: inherit;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #f5f5f5;
+      }
+      button:hover {
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Clipboard redaction</h1>
+    <div class="layout">
+      <section class="section" aria-label="Left">
+        <label>Textarea</label>
+        <textarea id="left-textarea" placeholder="Type or paste here…"></textarea>
+        <label>
+          Contenteditable div
+          <div id="left-contenteditable" contenteditable="true" placeholder="Type or paste here…"></div>
+        </label>
+        <label>
+          Normal paragraph
+          <p id="left-paragraph"></p>
+        </label>
+      </section>
+      <section class="section" aria-label="Right">
+        <label>Textarea</label>
+        <textarea id="right-textarea" placeholder="Paste target…"></textarea>
+
+        <button type="button" id="paste-btn">Paste</button>
+      </section>
+    </div>
+    <script>
+      const leftContent = `Please review the following information for your records. You can reach our support team at (555) 123-4567 Monday through Friday from 9 AM to 5 PM Eastern. For identity verification we may ask for the last four digits of your SSN; a typical format is 123-45-6789. When making payments use the card ending in 4242: the full number is 4532 1488 0343 4242 and the expiration is 12/28. We will send a confirmation to john.doe@example.com within 24 hours. Keep this email secure and do not share your login credentials with anyone. If you notice any suspicious activity on the account ending in 6467 contact us immediately at 1-800-555-0199. Our fraud department is available around the clock. You may also write to support@company.example.com with your full name and the phone number we have on file.`
+
+      document.getElementById('left-textarea').value = leftContent
+      document.getElementById('left-contenteditable').textContent = leftContent
+      document.getElementById('left-paragraph').textContent = leftContent
+
+      document.getElementById('paste-btn').addEventListener('click', async () => {
+        const textarea = document.getElementById('right-textarea')
+        try {
+          const text = await navigator.clipboard.readText()
+          textarea.value = text
+        } catch (err) {
+          textarea.value = 'Paste failed: ' + (err.message || 'Permission denied')
+        }
+      })
+    </script>
+  </body>
+</html>
