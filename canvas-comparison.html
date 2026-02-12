@@ -77,26 +77,125 @@
         margin: 0 auto 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
+
+      .canvas-status {
+        text-align: center;
+        margin-top: -12px;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .canvas-status .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-family: monospace;
+      }
+
+      .canvas-status .badge-webgl {
+        background: #27ae60;
+        color: white;
+      }
+
+      .canvas-status .badge-2d {
+        background: #95a5a6;
+        color: white;
+      }
+
+      .canvas-status .badge-fallback {
+        background: #e67e22;
+        color: white;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        50% {
+          opacity: 0.85;
+        }
+      }
+
+      .testing-section {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 25px;
+      }
+
+      .testing-section h3 {
+        color: #333;
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+
+      .testing-section code {
+        background: #e9ecef;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.85em;
+      }
+
+      .testing-section pre {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 6px;
+        overflow-x: auto;
+        font-size: 0.9rem;
+        margin: 8px 0;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Canvas Comparison - 2D, WebGL, Offscreen</h1>
       <p class="description">
-        Three canvases rendering the same DLP test data using different
+        Four canvases rendering the same DLP test data using different
         contexts:
       </p>
       <ul class="info-list">
         <li>Canvas 1: Standard 2D context (same as canvas.html)</li>
         <li>Canvas 2: WebGL context (renders via texture)</li>
-        <li>Canvas 3: Offscreen canvas (renders same data)</li>
+        <li>Canvas 3: Offscreen canvas with 2D (renders same data)</li>
+        <li>Canvas 4: Offscreen canvas with WebGL (renders same data)</li>
       </ul>
+
+      <div class="testing-section">
+        <h3>Testing WebGL fallback with Chrome DevTools MCP</h3>
+        <p>
+          To test the "2D (fallback)" badges, disable WebGL and reload. Chrome
+          DevTools MCP supports <code>--chromeArg</code> to pass Chrome flags:
+        </p>
+        <pre>{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--chromeArg=--disable-webgl"
+      ]
+    }
+  }
+}</pre>
+        <p>
+          Or connect to a Chrome instance started manually with WebGL disabled
+          (macOS):
+        </p>
+        <pre>/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-profile-stable --disable-webgl</pre>
+        <p>
+          Then use <code>--browser-url=http://127.0.0.1:9222</code> in your MCP
+          config.
+        </p>
+      </div>
 
       <!-- Canvas 1: Standard 2D -->
       <div class="canvas-section">
         <h2>1. Standard 2D Canvas</h2>
         <p>Same as canvas.html - uses getContext("2d")</p>
         <canvas id="canvas2d" width="1200"></canvas>
+        <p class="canvas-status" id="statusCanvas2d"></p>
       </div>
 
       <!-- Canvas 2: WebGL -->
@@ -104,13 +203,23 @@
         <h2>2. WebGL Canvas</h2>
         <p>Uses getContext("webgl") - renders same content via texture</p>
         <canvas id="canvasWebGL" width="1200"></canvas>
+        <p class="canvas-status" id="statusCanvasWebGL"></p>
       </div>
 
-      <!-- Canvas 3: Offscreen -->
+      <!-- Canvas 3: Offscreen 2D -->
       <div class="canvas-section">
-        <h2>3. Offscreen Canvas</h2>
-        <p>Uses OffscreenCanvas - renders same data, displayed on regular canvas</p>
+        <h2>3. Offscreen Canvas (2D)</h2>
+        <p>Uses OffscreenCanvas with getContext("2d") - renders same data, displayed on regular canvas</p>
         <canvas id="canvasOffscreen" width="1200"></canvas>
+        <p class="canvas-status" id="statusCanvasOffscreen"></p>
+      </div>
+
+      <!-- Canvas 4: Offscreen + WebGL -->
+      <div class="canvas-section">
+        <h2>4. Offscreen Canvas (WebGL)</h2>
+        <p>Uses OffscreenCanvas with getContext("webgl") - renders same data via texture, displayed on regular canvas</p>
+        <canvas id="canvasOffscreenWebGL" width="1200"></canvas>
+        <p class="canvas-status" id="statusCanvasOffscreenWebGL"></p>
       </div>
     </div>
 
@@ -312,6 +421,7 @@
         if (!ctx) return;
 
         renderTo2DContext(ctx, canvas.width, canvas.height);
+        setCanvasStatus("statusCanvas2d", "2D", "2d");
       }
 
       // Canvas 2: WebGL - renders 2D content as texture
@@ -331,17 +441,31 @@
             fallbackCtx.fillText("WebGL not supported - falling back to 2D", 30, 50);
             renderTo2DContext(fallbackCtx, canvas.width, canvas.height);
           }
+          setCanvasStatus("statusCanvasWebGL", "2D (fallback)", "fallback");
           return;
         }
 
-        // Create offscreen 2D canvas for text rendering
+        const textureCanvas = createTextureCanvas(canvas.width, requiredHeight);
+        renderWebGLTexture(gl, textureCanvas);
+        setCanvasStatus("statusCanvasWebGL", "WebGL", "webgl");
+      }
+
+      /**
+       * Creates a 2D canvas with the DLP test data rendered (for use as WebGL texture).
+       */
+      function createTextureCanvas(width, height) {
         const textureCanvas = document.createElement("canvas");
-        textureCanvas.width = canvas.width;
-        textureCanvas.height = requiredHeight;
+        textureCanvas.width = width;
+        textureCanvas.height = height;
         const textureCtx = textureCanvas.getContext("2d");
         renderTo2DContext(textureCtx, textureCanvas.width, textureCanvas.height);
+        return textureCanvas;
+      }
 
-        // Create texture from 2D canvas
+      /**
+       * Renders a 2D canvas as texture onto a WebGL context (full-screen quad).
+       */
+      function renderWebGLTexture(gl, textureCanvas) {
         const texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureCanvas);
@@ -350,7 +474,6 @@
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
-        // Vertex shader
         const vsSource = `
           attribute vec2 a_position;
           attribute vec2 a_texCoord;
@@ -361,7 +484,6 @@
           }
         `;
 
-        // Fragment shader
         const fsSource = `
           precision mediump float;
           varying vec2 v_texCoord;
@@ -374,7 +496,6 @@
         const program = createShaderProgram(gl, vsSource, fsSource);
         gl.useProgram(program);
 
-        // Full-screen quad
         const positions = new Float32Array([
           -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1,
         ]);
@@ -447,6 +568,7 @@
         if (typeof OffscreenCanvas === "undefined") {
           // Fallback: render same content directly to display canvas
           renderTo2DContext(displayCtx, displayCanvas.width, displayCanvas.height);
+          setCanvasStatus("statusCanvasOffscreen", "2D (fallback - no OffscreenCanvas)", "fallback");
           return;
         }
 
@@ -454,6 +576,7 @@
         const ctx = offscreen.getContext("2d");
         if (!ctx) {
           renderTo2DContext(displayCtx, displayCanvas.width, displayCanvas.height);
+          setCanvasStatus("statusCanvasOffscreen", "2D (fallback)", "fallback");
           return;
         }
 
@@ -461,12 +584,63 @@
 
         // Draw offscreen canvas onto display canvas
         displayCtx.drawImage(offscreen, 0, 0);
+        setCanvasStatus("statusCanvasOffscreen", "Offscreen + 2D", "2d");
+      }
+
+      // Canvas 4: Offscreen + WebGL
+      function renderCanvasOffscreenWebGL() {
+        const displayCanvas = document.getElementById("canvasOffscreenWebGL");
+        if (!displayCanvas) return;
+
+        const requiredHeight = calculateRequiredHeight(displayCanvas.width);
+        displayCanvas.height = requiredHeight;
+
+        const displayCtx = displayCanvas.getContext("2d");
+        if (!displayCtx) return;
+
+        if (typeof OffscreenCanvas === "undefined") {
+          // Fallback: render directly with 2D
+          renderTo2DContext(displayCtx, displayCanvas.width, displayCanvas.height);
+          setCanvasStatus("statusCanvasOffscreenWebGL", "2D (fallback - no OffscreenCanvas)", "fallback");
+          return;
+        }
+
+        const offscreen = new OffscreenCanvas(displayCanvas.width, requiredHeight);
+        const gl = offscreen.getContext("webgl") || offscreen.getContext("experimental-webgl");
+
+        if (!gl) {
+          // Fallback: use 2D on offscreen
+          const ctx = offscreen.getContext("2d");
+          if (ctx) {
+            renderTo2DContext(ctx, offscreen.width, offscreen.height);
+            displayCtx.drawImage(offscreen, 0, 0);
+          } else {
+            renderTo2DContext(displayCtx, displayCanvas.width, displayCanvas.height);
+          }
+          setCanvasStatus("statusCanvasOffscreenWebGL", "2D (fallback - no WebGL)", "fallback");
+          return;
+        }
+
+        const textureCanvas = createTextureCanvas(offscreen.width, requiredHeight);
+        renderWebGLTexture(gl, textureCanvas);
+
+        // Draw offscreen WebGL canvas onto display canvas
+        displayCtx.drawImage(offscreen, 0, 0);
+        setCanvasStatus("statusCanvasOffscreenWebGL", "Offscreen + WebGL", "webgl");
+      }
+
+      function setCanvasStatus(elementId, label, badgeClass) {
+        const el = document.getElementById(elementId);
+        if (el) {
+          el.innerHTML = `<span class="badge badge-${badgeClass}">${label}</span>`;
+        }
       }
 
       function renderAll() {
         renderCanvas2D();
         renderCanvasWebGL();
         renderCanvasOffscreen();
+        renderCanvasOffscreenWebGL();
       }
 
       document.addEventListener("DOMContentLoaded", () => {
