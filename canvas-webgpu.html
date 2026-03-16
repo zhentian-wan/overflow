@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas WebGPU - Same as canvas.html</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .description {
+        color: #666;
+        margin-bottom: 15px;
+      }
+
+      .canvas-status {
+        text-align: center;
+        margin-top: -12px;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .canvas-status .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-family: monospace;
+      }
+
+      .canvas-status .badge-webgpu {
+        background: #27ae60;
+        color: white;
+      }
+
+      .canvas-status .badge-fallback {
+        background: #e67e22;
+        color: white;
+      }
+
+      canvas {
+        width: 100%;
+        max-width: 1200px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        background: #fafafa;
+        display: block;
+        margin: 0 auto 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Canvas with WebGPU Context</h1>
+      <p class="description">
+        Same DLP test data as canvas.html, rendered via WebGPU. Uses 2D canvas
+        for text (WebGPU has no text API), then displays it as a texture.
+      </p>
+      <canvas id="canvas" width="1200"></canvas>
+      <p class="canvas-status" id="status"></p>
+    </div>
+
+    <script>
+      const testData = {
+        emails: [
+          "a.bc@e.com",
+          "jane.smith@companyexample.org",
+          "contact@businessexample.net",
+          "support@service.io",
+          "admin@domain.co.uk",
+        ],
+        creditCards: [
+          "4929-3813-3266-4295",
+          "5370-4638-8881-3020",
+          "4916-4811-5814-8111",
+          "5299-1561-5689-1938",
+          "5293-8502-0071-3058",
+          "4539-5385-7425-5825",
+          "4916-9766-5240-6147",
+        ],
+        ssn: [
+          "451-80-3526",
+          "404-12-2154",
+          "505-88-5714",
+          "461-97-5660",
+          "172-32-1176",
+          "151-32-2558",
+          "782-92-0903",
+          "109-45-2744",
+          "399-56-2441",
+        ],
+        freeText: [
+          "This is some regular text content that should 4929-3813-3266-4295 not be flagged.",
+          "Lorem ipsum dolor sit amet, 461-97-5660 consectetur adipiscing elit.",
+          "The quick brown 5370-4638-8881-3020 fox jumps over the lazy dog.",
+          "Sample 505-88-5714 paragraph for testing purposes only.",
+          "Random text without any sensitive information. 399-56-2441",
+        ],
+      };
+
+      function getRandomColor(type) {
+        const colors = {
+          email: "#e74c3c",
+          creditCard: "#c0392b",
+          phone: "#3498db",
+          freeText: "#2c3e50",
+        };
+        return colors[type] || "#000000";
+      }
+
+      function calculateRequiredHeight(canvasWidth) {
+        const lineHeight = 35;
+        const leftMargin = 30;
+        let currentY = 40;
+        currentY += lineHeight + 10 + testData.emails.length * lineHeight + 30;
+        currentY += lineHeight + 10 + testData.creditCards.length * lineHeight + 30;
+        currentY += lineHeight + 10 + testData.ssn.length * lineHeight + 30;
+        currentY += lineHeight + 10;
+        const measureCanvas = document.createElement("canvas");
+        const measureCtx = measureCanvas.getContext("2d");
+        measureCtx.font = "18px Arial";
+        const maxWidth = canvasWidth - leftMargin * 2;
+        testData.freeText.forEach((text) => {
+          const words = text.split(" ");
+          let line = "";
+          let lineY = currentY;
+          words.forEach((word) => {
+            const testLine = line + word + " ";
+            const metrics = measureCtx.measureText(testLine);
+            if (metrics.width > maxWidth && line.length > 0) {
+              line = word + " ";
+              lineY += lineHeight;
+            } else {
+              line = testLine;
+            }
+          });
+          if (line.length > 0) lineY += lineHeight;
+          currentY = lineY + 10;
+        });
+        return currentY + 40;
+      }
+
+      function renderTo2DContext(ctx, width, height) {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = "20px Arial";
+        ctx.textBaseline = "top";
+
+        const lineHeight = 35;
+        const leftMargin = 30;
+        let currentY = 40;
+
+        ctx.fillStyle = "#e74c3c";
+        ctx.font = "bold 24px Arial";
+        ctx.fillText("Email Addresses:", leftMargin, currentY);
+        currentY += lineHeight + 10;
+        ctx.font = "20px Arial";
+        testData.emails.forEach((email) => {
+          ctx.fillStyle = getRandomColor("email");
+          ctx.fillText(email, leftMargin, currentY);
+          currentY += lineHeight;
+        });
+        currentY += 30;
+
+        ctx.fillStyle = "#c0392b";
+        ctx.font = "bold 24px Arial";
+        ctx.fillText("Credit Card Numbers:", leftMargin, currentY);
+        currentY += lineHeight + 10;
+        ctx.font = "20px Arial";
+        testData.creditCards.forEach((card) => {
+          ctx.strokeStyle = getRandomColor("creditCard");
+          ctx.strokeText(card, leftMargin, currentY);
+          currentY += lineHeight;
+        });
+        currentY += 30;
+
+        ctx.fillStyle = "#3498db";
+        ctx.font = "bold 24px Arial";
+        ctx.fillText("SSN:", leftMargin, currentY);
+        currentY += lineHeight + 10;
+        ctx.font = "20px Arial";
+        testData.ssn.forEach((phone) => {
+          ctx.fillStyle = getRandomColor("phone");
+          ctx.fillText(phone, leftMargin, currentY);
+          currentY += lineHeight;
+        });
+        currentY += 30;
+
+        ctx.fillStyle = "#2c3e50";
+        ctx.font = "bold 24px Arial";
+        ctx.fillText("Free Text:", leftMargin, currentY);
+        currentY += lineHeight + 10;
+        ctx.font = "18px Arial";
+        const maxWidth = width - leftMargin * 2;
+        testData.freeText.forEach((text) => {
+          const words = text.split(" ");
+          let line = "";
+          let lineY = currentY;
+          words.forEach((word) => {
+            const testLine = line + word + " ";
+            const metrics = ctx.measureText(testLine);
+            if (metrics.width > maxWidth && line.length > 0) {
+              ctx.fillStyle = getRandomColor("freeText");
+              ctx.fillText(line, leftMargin, lineY);
+              line = word + " ";
+              lineY += lineHeight;
+            } else {
+              line = testLine;
+            }
+          });
+          if (line.length > 0) {
+            ctx.fillStyle = getRandomColor("freeText");
+            ctx.fillText(line, leftMargin, lineY);
+            lineY += lineHeight;
+          }
+          currentY = lineY + 10;
+        });
+      }
+
+      function createTextureCanvas(width, height) {
+        const textureCanvas = document.createElement("canvas");
+        textureCanvas.width = width;
+        textureCanvas.height = height;
+        const ctx = textureCanvas.getContext("2d");
+        renderTo2DContext(ctx, width, height);
+        return textureCanvas;
+      }
+
+      async function initWebGPU() {
+        const canvas = document.getElementById("canvas");
+        const statusEl = document.getElementById("status");
+
+        const requiredHeight = calculateRequiredHeight(canvas.width);
+        canvas.height = requiredHeight;
+
+        if (!navigator.gpu) {
+          statusEl.innerHTML = '<span class="badge badge-fallback">2D (fallback - WebGPU not available)</span>';
+          const ctx = canvas.getContext("2d");
+          renderTo2DContext(ctx, canvas.width, canvas.height);
+          return;
+        }
+
+        const adapter = await navigator.gpu.requestAdapter();
+        if (!adapter) {
+          statusEl.innerHTML = '<span class="badge badge-fallback">2D (fallback - no adapter)</span>';
+          const ctx = canvas.getContext("2d");
+          renderTo2DContext(ctx, canvas.width, canvas.height);
+          return;
+        }
+
+        const device = await adapter.requestDevice();
+        const context = canvas.getContext("webgpu");
+        if (!context) {
+          statusEl.innerHTML = '<span class="badge badge-fallback">2D (fallback - no webgpu context)</span>';
+          const ctx = canvas.getContext("2d");
+          renderTo2DContext(ctx, canvas.width, canvas.height);
+          return;
+        }
+
+        const format =
+          (navigator.gpu && navigator.gpu.getPreferredCanvasFormat?.()) ||
+          "bgra8unorm";
+        context.configure({
+          device,
+          format,
+          alphaMode: "opaque",
+        });
+
+        const textureCanvas = createTextureCanvas(canvas.width, requiredHeight);
+
+        const texture = device.createTexture({
+          size: [textureCanvas.width, textureCanvas.height],
+          format: "rgba8unorm",
+          usage:
+            GPUTextureUsage.TEXTURE_BINDING |
+            GPUTextureUsage.COPY_DST |
+            GPUTextureUsage.RENDER_ATTACHMENT,
+        });
+
+        device.queue.copyExternalImageToTexture(
+          { source: textureCanvas, flipY: true },
+          { texture },
+          { width: textureCanvas.width, height: textureCanvas.height }
+        );
+
+        const shaderModule = device.createShaderModule({
+          code: `
+            struct VSOutput {
+              @builtin(position) position: vec4f,
+              @location(0) texCoord: vec2f,
+            }
+            @vertex fn vs(@builtin(vertex_index) i: u32) -> VSOutput {
+              let pos = array(
+                vec2f(-1, -1), vec2f(1, -1), vec2f(-1, 1),
+                vec2f(-1, 1), vec2f(1, -1), vec2f(1, 1),
+              );
+              let uv = array(
+                vec2f(1, 1), vec2f(0, 1), vec2f(1, 0),
+                vec2f(1, 0), vec2f(0, 1), vec2f(0, 0),
+              );
+              var out: VSOutput;
+              out.position = vec4f(pos[i], 0, 1);
+              out.texCoord = uv[i];
+              return out;
+            }
+            @group(0) @binding(0) var samp: sampler;
+            @group(0) @binding(1) var tex: texture_2d<f32>;
+            @fragment fn fs(in: VSOutput) -> @location(0) vec4f {
+              return textureSample(tex, samp, in.texCoord);
+            }
+          `,
+        });
+
+        const pipeline = device.createRenderPipeline({
+          layout: "auto",
+          vertex: { module: shaderModule, entryPoint: "vs" },
+          fragment: {
+            module: shaderModule,
+            entryPoint: "fs",
+            targets: [{ format }],
+          },
+        });
+
+        const sampler = device.createSampler({
+          magFilter: "linear",
+          minFilter: "linear",
+        });
+
+        const bindGroup = device.createBindGroup({
+          layout: pipeline.getBindGroupLayout(0),
+          entries: [
+            { binding: 0, resource: sampler },
+            { binding: 1, resource: texture.createView() },
+          ],
+        });
+
+        const encoder = device.createCommandEncoder();
+        const pass = encoder.beginRenderPass({
+          colorAttachments: [
+            {
+              view: context.getCurrentTexture().createView(),
+              loadOp: "clear",
+              clearValue: { r: 1, g: 1, b: 1, a: 1 },
+              storeOp: "store",
+            },
+          ],
+        });
+        pass.setPipeline(pipeline);
+        pass.setBindGroup(0, bindGroup);
+        pass.draw(6);
+        pass.end();
+
+        device.queue.submit([encoder.finish()]);
+
+        statusEl.innerHTML = '<span class="badge badge-webgpu">WebGPU</span>';
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initWebGPU().catch((err) => {
+          console.error("WebGPU init failed:", err);
+          const canvas = document.getElementById("canvas");
+          const statusEl = document.getElementById("status");
+          statusEl.innerHTML =
+            '<span class="badge badge-fallback">2D (fallback - error)</span>';
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            const requiredHeight = calculateRequiredHeight(canvas.width);
+            canvas.height = requiredHeight;
+            renderTo2DContext(ctx, canvas.width, canvas.height);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
