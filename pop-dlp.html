@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DLP JS Dialogs (alert, confirm, prompt)</title>
+</head>
+<style>
+    ul {
+      list-style-type: none;
+      text-align: left;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 20px;
+    }
+</style>
+<script>
+    function sensitiveBlock() {
+      let message = "";
+      message += "SSN 1: 489-36-8350\n";
+      message += "SSN 2: 514-14-8905\n";
+      message += "Credit Card: 5370-4638-8881-3020\n";
+      message += "Credit Card: 4929-3813-3266-4295\n";
+      return message;
+    }
+
+    function jsAlert() {
+      const message = "JS Alert\n" + sensitiveBlock();
+      alert(message);
+      log("Clicked JS Alert (OK dismissed)");
+    }
+
+    function jsConfirm() {
+      const message = "JS Confirm\n" + sensitiveBlock() + "\n\nPress OK or Cancel.";
+      const ok = confirm(message);
+      log("JS Confirm result: " + (ok ? "OK (true)" : "Cancel (false)"));
+    }
+
+    function jsPrompt() {
+      const message = "JS Prompt\n" + sensitiveBlock() + "\n\nEnter text (sensitive data may appear in the input default):";
+      const defaultValue = "232-45-2367";
+      const value = prompt(message, defaultValue);
+      if (value === null) {
+        log("JS Prompt result: dismissed (null)");
+      } else {
+        log("JS Prompt result: " + JSON.stringify(value));
+      }
+    }
+
+    function log(msg) {
+      var result = document.getElementById("result");
+      result.innerHTML = msg;
+    }
+</script>
+<body>
+<h1>DLP JS Dialogs</h1>
+<p>Same pattern as <a href="https://qa-tools-appsulate.onrender.com/dlpJsAlerts">dlpJsAlerts</a>: test strings in native browser dialogs for DLP / isolation testing.</p>
+<ul style="list-style-type: none">
+    <li>
+        <button type="button" onclick="jsAlert()">Click for JS Alert</button>
+    </li>
+    <li>
+        <button type="button" onclick="jsConfirm()">Click for JS Confirm</button>
+    </li>
+    <li>
+        <button type="button" onclick="jsPrompt()">Click for JS Prompt</button>
+    </li>
+</ul>
+<h4>Result:</h4>
+<p id="result" style="color: green"></p>
+</body>
+</html>
