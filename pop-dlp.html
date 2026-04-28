@@ -29,6 +29,36 @@
       log("Clicked JS Alert (OK dismissed)");
     }
 
+    function jsAlertNoArgument() {
+      window.alert();
+      log("window.alert() called with no argument");
+    }
+
+    function jsAlertWithUndefined() {
+      window.alert(undefined);
+      log("window.alert(undefined) called");
+    }
+
+    function jsAlertWithNull() {
+      window.alert(null);
+      log("window.alert(null) called");
+    }
+
+    function jsAlertWithFalse() {
+      window.alert(false);
+      log("window.alert(false) called");
+    }
+
+    function jsAlertWithZero() {
+      window.alert(0);
+      log("window.alert(0) called");
+    }
+
+    function jsAlertWithEmptyString() {
+      window.alert('');
+      log("window.alert('') called");
+    }
+
     function jsConfirm() {
       const message = "JS Confirm\n" + sensitiveBlock() + "\n\nPress OK or Cancel.";
       const ok = confirm(message);
@@ -57,6 +87,24 @@
 <ul style="list-style-type: none">
     <li>
         <button type="button" onclick="jsAlert()">Click for JS Alert</button>
+    </li>
+    <li>
+        <button type="button" onclick="jsAlertNoArgument()">Click for window.alert() (no argument)</button>
+    </li>
+    <li>
+        <button type="button" onclick="jsAlertWithUndefined()">Click for window.alert(undefined)</button>
+    </li>
+    <li>
+        <button type="button" onclick="jsAlertWithNull()">Click for window.alert(null)</button>
+    </li>
+    <li>
+        <button type="button" onclick="jsAlertWithFalse()">Click for window.alert(false)</button>
+    </li>
+    <li>
+        <button type="button" onclick="jsAlertWithZero()">Click for window.alert(0)</button>
+    </li>
+    <li>
+        <button type="button" onclick="jsAlertWithEmptyString()">Click for window.alert('')</button>
     </li>
     <li>
         <button type="button" onclick="jsConfirm()">Click for JS Confirm</button>
