@@ -16,10 +16,12 @@
 <script>
     function sensitiveBlock() {
       let message = "";
+      // Add sensitive numbers to the message string
       message += "SSN 1: 489-36-8350\n";
       message += "SSN 2: 514-14-8905\n";
       message += "Credit Card: 5370-4638-8881-3020\n";
       message += "Credit Card: 4929-3813-3266-4295\n";
+
       return message;
     }
 
@@ -83,7 +85,14 @@
 </script>
 <body>
 <h1>DLP JS Dialogs</h1>
-<p>Same pattern as <a href="https://qa-tools-appsulate.onrender.com/dlpJsAlerts">dlpJsAlerts</a>: test strings in native browser dialogs for DLP / isolation testing.</p>
+<h2>Sensitive Data Section</h2>
+<ul>
+  <li>SSN 1: 489-36-8350</li>
+  <li>SSN 2: 514-14-8905</li>
+  <li>Credit Card: 5370-4638-8881-3020</li>
+  <li>Credit Card: 4929-3813-3266-4295</li>
+</ul>
+
 <ul style="list-style-type: none">
     <li>
         <button type="button" onclick="jsAlert()">Click for JS Alert</button>
