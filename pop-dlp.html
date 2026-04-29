@@ -87,13 +87,13 @@
      * Demo: alert + setTimeout — tests whether code after alert runs only after dismiss (native),
      * or immediately (non-blocking / wrapped alert).
      */
-    function resetSecretDemo() {
+    function showSecretDemo() {
       var box = document.getElementById("secretCodeBox");
       var code = document.getElementById("secretCode");
       code.textContent = "TEMP-SECRET-7K2Q9M";
       box.style.display = "block";
       box.style.opacity = "1";
-      log("Secret demo reset.");
+      log("Secret is now visible.");
     }
 
     function hideSecretCode() {
@@ -104,32 +104,32 @@
 
     /**
      * Native semantics: setTimeout is scheduled only AFTER alert returns.
-     * User should see the secret on the page while the alert is open; after OK, secret stays ~1s then disappears.
+     * User should see the secret on the page while the alert is open; after OK, secret stays ~5s then disappears.
      */
     function alertThenTimerRemovesSecret() {
-      resetSecretDemo();
+      showSecretDemo();
       var t0 = Date.now();
       alert(
-        "You'll see a secret code on the page below. After you dismiss this dialog, it will disappear in 1 second.\n\n" +
+        "You'll see a secret code on the page below. After you dismiss this dialog, it will disappear in 5 seconds.\n\n" +
           "(With real window.alert, nothing after alert() runs until you click OK.)"
       );
       log("alert() returned at +" + (Date.now() - t0) + "ms from button click — setTimeout scheduled now.");
-      setTimeout(hideSecretCode, 1000);
+      setTimeout(hideSecretCode, 5000);
     }
 
     /**
-     * Timer is scheduled BEFORE alert. With a blocking native alert, the 1s timer often will not fire until
+     * Timer is scheduled BEFORE alert. With a blocking native alert, the 5s timer often will not fire until
      * after dismiss; with a non-blocking mock/wrapper, the secret may disappear while the dialog is still open.
      */
     function timerThenAlertRemovesSecret() {
-      resetSecretDemo();
+      showSecretDemo();
       var t0 = Date.now();
       setTimeout(function () {
         log("setTimeout fired at +" + (Date.now() - t0) + "ms (before or after alert, depending on environment).");
         hideSecretCode();
-      }, 1000);
+      }, 5000);
       alert(
-        "A 1-second timer was already started. If alert is truly blocking, the secret should still be visible until you dismiss this dialog, then may disappear soon after.\n\n" +
+        "A 5-second timer was already started. If alert is truly blocking, the secret should still be visible until you dismiss this dialog, then may disappear soon after.\n\n" +
           "If alert returns immediately, the secret may vanish while this dialog is open."
       );
       log("alert() returned at +" + (Date.now() - t0) + "ms.");
@@ -169,16 +169,13 @@
     </li>
     <li>
         <button type="button" onclick="alertThenTimerRemovesSecret()">
-          Alert then 1s timer removes secret (code after alert)
+          Alert then 5s timer removes secret (code after alert)
         </button>
     </li>
     <li>
         <button type="button" onclick="timerThenAlertRemovesSecret()">
-          1s timer then alert (timer scheduled before alert)
+          5s timer then alert (timer scheduled before alert)
         </button>
-    </li>
-    <li>
-        <button type="button" onclick="resetSecretDemo()">Reset secret demo</button>
     </li>
     <li>
         <button type="button" onclick="jsConfirm()">Click for JS Confirm</button>
@@ -188,7 +185,7 @@
     </li>
 </ul>
 <h2>Secret + alert timing demo</h2>
-<p id="secretCodeBox" style="padding: 12px; border: 2px dashed #333; max-width: 420px; background: #fff8e6">
+<p id="secretCodeBox" style="display: none; padding: 12px; border: 2px dashed #333; max-width: 420px; background: #fff8e6">
   <strong>Secret code:</strong>
   <span id="secretCode">TEMP-SECRET-7K2Q9M</span>
 </p>
