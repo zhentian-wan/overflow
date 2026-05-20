@@ -84,7 +84,7 @@
       <div class="link-container">
         <h3>3. Popup Window</h3>
         <p>This link will open Microsoft login in a popup window.</p>
-        <a href="#" class="popup-link" onclick="openPopup()"
+        <a href="#" class="popup-link" onclick="openPopup(`https://login.microsoftonline.com`)"
           >Login to Microsoft (Popup)</a
         >
       </div>
@@ -92,23 +92,15 @@
       <div class="link-container">
         <h3>4. Okta</h3>
         <p>This link will open Okta in a popup window.</p>
-        <a href="#" class="popup-link" onclick="openOkta()"
-          >Login to Microsoft (Popup)</a
+        <a href="#" class="popup-link" onclick="openOkta(`https://login.okta.com/`)"
+          >Login to Okta (Popup)</a
         >
       </div>
 
     </div>
 
     <script>
-      function openOkta() {
-        const popup = window.open(
-          "https://login.okta.com/",
-          "oktalogin",
-          `width=350,height=450,left=${left},top=${top},scrollbars=yes,resizable=no,status=no,location=no,toolbar=no,menubar=no,directories=no,fullscreen=no,modal=yes,alwaysRaised=yes`
-        );
-      }
-
-      function openPopup() {
+      function openPopup(url) {
         // Calculate center position for the popup relative to the current window
         const left =
           (window.screenX || window.screenLeft) + (window.outerWidth - 350) / 2;
@@ -117,7 +109,7 @@
 
         // Open in popup window with dialog-like behavior
         const popup = window.open(
-          "https://login.microsoftonline.com",
+          url,
           "microsoftLogin",
           `width=350,height=450,left=${left},top=${top},scrollbars=yes,resizable=no,status=no,location=no,toolbar=no,menubar=no,directories=no,fullscreen=no,modal=yes,alwaysRaised=yes`
         );
