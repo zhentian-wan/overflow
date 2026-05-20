@@ -88,9 +88,26 @@
           >Login to Microsoft (Popup)</a
         >
       </div>
+
+      <div class="link-container">
+        <h3>4. Okta</h3>
+        <p>This link will open Okta in a popup window.</p>
+        <a href="#" class="popup-link" onclick="openOkta()"
+          >Login to Microsoft (Popup)</a
+        >
+      </div>
+
     </div>
 
     <script>
+      function openOkta() {
+        const popup = window.open(
+          "https://login.okta.com/",
+          "oktalogin",
+          `width=350,height=450,left=${left},top=${top},scrollbars=yes,resizable=no,status=no,location=no,toolbar=no,menubar=no,directories=no,fullscreen=no,modal=yes,alwaysRaised=yes`
+        );
+      }
+
       function openPopup() {
         // Calculate center position for the popup relative to the current window
         const left =
