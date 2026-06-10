@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HOP-54408 Blob URL Test</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 640px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    p.description {
+      color: #444;
+      line-height: 1.5;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 1rem;
+    }
+
+    button {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    #result {
+      color: #0a6640;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  </style>
+  <script>
+    /**
+     * HTML page served via blob URL — matches the ticket scenario where JS
+     * creates a blob and opens it in a new window (not a PDF/file download).
+     */
+    function createTestPageBlob() {
+      const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HOP-54408 Blob Page</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f4f8;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 { color: #0747a6; margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>HOP-54408 Blob Page</h1>
+    <p>This page was opened via <code>URL.createObjectURL()</code> + <code>window.open()</code>.</p>
+    <p>If you can see this, the blob URL stayed within isolation.</p>
+  </div>
+</body>
+</html>`
+
+      return new Blob([html], { type: 'text/html' })
+    }
+
+    function createBlobUrl() {
+      const blob = createTestPageBlob()
+      return URL.createObjectURL(blob)
+    }
+
+    function log(msg) {
+      document.getElementById('result').textContent = msg
+    }
+
+    function openBlobInNewWindow() {
+      const blobUrl = createBlobUrl()
+      const win = window.open(blobUrl, '_blank')
+
+      if (!win) {
+        log('Popup blocked. Allow popups for this site and try again.\n\nBlob URL was:\n' + blobUrl)
+        return
+      }
+
+      log('Opened blob in new window.\n\nBlob URL:\n' + blobUrl)
+    }
+
+    function openBlobInSameTab() {
+      const blobUrl = createBlobUrl()
+      log('Navigating same tab to blob URL:\n' + blobUrl)
+      window.location.href = blobUrl
+    }
+  </script>
+</head>
+<body>
+  <h1>HOP-54408 Blob URL Test</h1>
+
+  <p class="description">
+    Tests opening a web page via <code>URL.createObjectURL()</code> and <code>window.open()</code>
+    under oURL isolation. The blob contains an HTML page (same pattern as the ticket: JS creates
+    a blob URL and opens it in a new window). With oURL enabled, the popup should stay in
+    isolation on the <strong>private host</strong> (not raw <code>blob:</code> in the address bar).
+  </p>
+
+  <ul>
+    <li>
+      <button type="button" onclick="openBlobInNewWindow()">Open Blob Page</button>
+    </li>
+    <li>
+      <button type="button" onclick="openBlobInSameTab()">Open Blob in Same Tab</button>
+    </li>
+  </ul>
+
+  <h2>Result</h2>
+  <p id="result">Click a button to test.</p>
+</body>
+</html>
