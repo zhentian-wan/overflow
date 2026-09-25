@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=500, height=500, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Viewport 500×500</title>
+  <style>
+    html {
+      margin: 0;
+      background: #2a2622;
+      overflow: hidden;
+    }
+
+    body {
+      box-sizing: border-box;
+      width: 500px;
+      height: 500px;
+      min-width: 500px;
+      max-width: 500px;
+      min-height: 500px;
+      max-height: 500px;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 4px solid #111;
+      background:
+        linear-gradient(to right, rgba(17, 17, 17, 0.06) 1px, transparent 1px) 0 0 / 50px 50px,
+        linear-gradient(to bottom, rgba(17, 17, 17, 0.06) 1px, transparent 1px) 0 0 / 50px 50px,
+        #f4f1ea;
+      color: #1c1915;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+
+    header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 10px 12px 6px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .limit {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+    }
+
+    dl {
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      gap: 3px 8px;
+      margin: 0;
+      padding: 0 12px 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    dt {
+      color: #5c564c;
+    }
+
+    dd {
+      margin: 0;
+    }
+
+    .stage {
+      position: relative;
+      flex: 1;
+      margin: 0 12px 12px;
+      border: 1px solid #111;
+      background:
+        linear-gradient(#e23d3d, #e23d3d) top / 100% 6px no-repeat,
+        linear-gradient(#2f9e44, #2f9e44) right / 6px 100% no-repeat,
+        linear-gradient(#1c7ed6, #1c7ed6) bottom / 100% 6px no-repeat,
+        linear-gradient(#f08c00, #f08c00) left / 6px 100% no-repeat,
+        #fffdf8;
+    }
+
+    .corner {
+      position: absolute;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+    }
+
+    .corner.tl { top: 10px; left: 10px; }
+    .corner.tr { top: 10px; right: 10px; }
+    .corner.bl { bottom: 10px; left: 10px; }
+    .corner.br { bottom: 10px; right: 10px; }
+
+    .cross {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 18px;
+      height: 18px;
+      transform: translate(-50%, -50%);
+    }
+
+    .cross::before,
+    .cross::after {
+      content: "";
+      position: absolute;
+      background: #111;
+    }
+
+    .cross::before {
+      left: 8px;
+      top: 0;
+      width: 2px;
+      height: 18px;
+    }
+
+    .cross::after {
+      left: 0;
+      top: 8px;
+      width: 18px;
+      height: 2px;
+    }
+
+    .match {
+      color: #0a6640;
+    }
+
+    .mismatch {
+      color: #a32d2d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Viewport limit</h1>
+    <div class="limit">500 × 500 px</div>
+  </header>
+  <dl>
+    <dt>inner</dt>
+    <dd id="inner">—</dd>
+    <dt>client</dt>
+    <dd id="client">—</dd>
+    <dt>visualViewport</dt>
+    <dd id="visual">—</dd>
+    <dt>devicePixelRatio</dt>
+    <dd id="dpr">—</dd>
+    <dt>screen</dt>
+    <dd id="screen">—</dd>
+    <dt>match</dt>
+    <dd id="match">—</dd>
+  </dl>
+  <div class="stage" aria-hidden="true">
+    <span class="corner tl">0, 0</span>
+    <span class="corner tr">500, 0</span>
+    <span class="corner bl">0, 500</span>
+    <span class="corner br">500, 500</span>
+    <span class="cross"></span>
+  </div>
+  <script>
+    const innerEl = document.getElementById("inner");
+    const clientEl = document.getElementById("client");
+    const visualEl = document.getElementById("visual");
+    const dprEl = document.getElementById("dpr");
+    const screenEl = document.getElementById("screen");
+    const matchEl = document.getElementById("match");
+
+    function px(value) {
+      return Math.round(value) + "px";
+    }
+
+    function render() {
+      const root = document.documentElement;
+      const visual = window.visualViewport;
+      const innerW = window.innerWidth;
+      const innerH = window.innerHeight;
+      const matches = innerW === 500 && innerH === 500;
+
+      innerEl.textContent = px(innerW) + " × " + px(innerH);
+      clientEl.textContent = px(root.clientWidth) + " × " + px(root.clientHeight);
+      visualEl.textContent = visual
+        ? px(visual.width) + " × " + px(visual.height) + "  scale " + visual.scale
+        : "unavailable";
+      dprEl.textContent = String(window.devicePixelRatio);
+      screenEl.textContent = px(screen.width) + " × " + px(screen.height);
+      matchEl.textContent = matches ? "window is 500 × 500" : "window is not 500 × 500";
+      matchEl.className = matches ? "match" : "mismatch";
+    }
+
+    render();
+    window.addEventListener("resize", render);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", render);
+    }
+  </script>
+</body>
+</html>
